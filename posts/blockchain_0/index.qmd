@@ -1,0 +1,90 @@
+---
+title: "Blockchain, ¿qué es eso?"
+author: "Zee Marquez"
+date: "2022-11-18"
+categories: [code, blockchain]
+image: "block0.jpg"
+lang: es
+page-layout: full
+toc: true
+linestretch: 1.75
+---
+
+# Lo básico
+
+La wikipedia define blockchain como: "una etiqueta que a través de una estructura de datos cuya información se agrupa en conjuntos (bloques) a los que se les añade metainformaciones relativas a otro bloque de la cadena anterior en una línea temporal para hacer un seguimiento seguro a través de grandes cálculos criptográficos". ¿Pero qué significa todo esto?
+La traducción literal de "blockchain" al español es: "cadena de bloques". Pero, ¿qué son estos "bloques"?, ¿y por qué están "encadenados"?. 
+
+Cuando hablamos de una cadena de bloques nos referimos a una serie de objetos, o bloques, que contienen una infromación, pero no son un grupo de objetos sin relacción entre ellos, sino que cada objeto hace referencia al anterior. Imaginemos por ejemplo un libro, al final podemos definir un libro como una cadena de paginas o "page-chain", el libro solo tiene sentido si las paginas están ordenadas correctamente. 
+
+![](diagram_blockchain0.png)
+
+En una blockchain cada bloque sería como una pagina de un libro que hace referencia a la pagina anterior. Vale pero esto para qué sirve.
+
+
+# ¿Para qué sirve una blockchain?
+
+Una blockchain es una herramienta que nos permite crear una red descentralizada en la que todo el mundo pueda confiar en la veracidad de la información apuntada aunque nadie se fie de nadie. Una blockchain nos permite registrar información inmutable y de forma secuencial.
+
+Imaginemos el caso de un grupo de amigos que quieren llevar las cuentas de su viaje al caribe. Para ello han comprado un cuaderno común y en cada página apuntan cada gasto. Si en el grupo de amigos todos se fian de todos pues genial, pero ¿qué pasa si no se pueden fiar?, uno de ellos podría modificar el gasto en una de las páginas y así robarle dinero al resto. Podriamos solucionar esto haciendo lás páginas inmutables, escribiendo en las páginas con boli por ejemplo. Pero al final siempre se puede arrancar la página y meter una nueva modificada. Lo que podemos hacer para asegurarnos que nadie ha modificado el cuaderno, es que la infromación de cada página esté codificada de alguna forma con la siguiente página. Por ejemplo, apuntamos en la parte de abajo de cada página la inicial y la cantidad del gasto de la página anterior, y vamos encadenadno estos codigos. De está forma si alguién modifica una página, entonces cualquiera puede comprobar que los codigos que encadenan las páginas no cuadran. 
+
+![](diagram_notebook.png)
+
+Si Pedro decide modificar la página 2 y se anota 85€ en vez de 15€ entonces el codigo apuntado en la página 3, "A20P15" no cuadra, deberia ser "A20P85". Así podemos comprobar que alguien ha modificado la página 2.
+
+Pero aquí surgen algunos problemas que no hemos tenido en cuenta. Cualquiera puede modificar una página del cuaderno y modificar todos los códigos sucesivos para validar el cuaderno. De esta forma nadie podria sospechar que se ha modificado el cuaderno. Esto se soluciona haciendo que cuestre trabajo modificar el codigo de cada pagina, de forma que quien intente modificar todas las páginas tenga que realizar una cantidad de trabajo prácticamente imposible. Podemos hacer que haya que incluir la solucion a una ecuacion en el codigo de cada pagina. Resolver esta operación matematica cuesta tiempo, esto es lo que comunmente se llama "proof-of-work" o prueba de trabajo, es decir que para añadir una pagina nueva tienes que demostrar que has realizado una cantidad de trabajo que haria imposible modificar todas las páginas en un periodo de tiempo razonable.
+
+Otro problema es que cualquiera puede hacerse pasar por otra persona. Por lo que necesitamos alguna forma de "firmar" las páginas de tal forma que se pueda verificar que cada gasto ha sido anotado por la persona correspondiente.
+
+Aparte de estos problemas, es facil darse cuenta de que el código que encadena las paginas se hace más grande con cada pagina, si tenemos un cuaderno de millones de paginas el codigo se hace demasiado grande. Necesitamos alguna forma de que todas las páginas tengan un código del mismo tamaño 
+
+Para resolver estos problemas hacemos uso de la criptografia, y es de aqui de donde surge la palabra "criptomoneda".
+
+# Crypto
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. In posuere dapibus lectus, sit amet viverra est semper id. Vivamus vulputate augue lorem, ac tristique lacus interdum id. In blandit sem nec enim molestie vehicula. Nullam vitae nulla mi. Maecenas a lacus faucibus, hendrerit erat eget, tincidunt sapien. Pellentesque sit amet felis interdum, tempor augue nec, rhoncus purus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc in lobortis risus, sed bibendum sem. Fusce accumsan gravida mi, vitae rutrum libero tincidunt a. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras sodales risus sed dui vestibulum porttitor. Morbi non fringilla massa. Aenean lacus libero, blandit nec sapien eget, facilisis euismod ligula. Aenean venenatis ex eget tristique volutpat.
+
+Fusce sodales id massa ac pharetra. Mauris ut nunc nisl. Nulla sit amet ultrices mi, eget euismod risus. Cras quam justo, dapibus vitae laoreet vel, cursus in enim. Quisque ut lectus vel turpis interdum mollis. Etiam iaculis sem sed lorem lacinia, id eleifend sem placerat. Praesent in orci in risus tincidunt tristique. Vestibulum id urna nisi. Aenean ultrices purus quis mattis viverra. Fusce accumsan quam sed nunc ultrices scelerisque. Suspendisse potenti.
+
+Proin id odio ut eros lacinia tincidunt vitae ac sem. Aenean laoreet consequat elit, sit amet convallis erat tempor sed. Nunc rutrum tortor magna, ac rhoncus mi convallis vel. Etiam lacus libero, commodo et orci a, aliquet sollicitudin purus. Donec blandit auctor ex, nec rhoncus massa fringilla nec. Sed at nunc dictum, molestie massa vel, tempus ipsum. Proin eget dignissim velit. Sed sapien orci, accumsan vel vulputate ac, placerat et est. Vestibulum ultricies mattis mi, sed venenatis metus dictum a. Etiam a nunc hendrerit, efficitur magna ut, pulvinar felis.
+
+Nullam non tincidunt mauris. Maecenas maximus velit et porta placerat. Ut et ultrices odio. Sed dapibus dolor at quam convallis cursus. Vivamus quis euismod purus, eu molestie nisi. Suspendisse eu blandit orci. Suspendisse potenti. Aenean ex mauris, aliquam sit amet rhoncus vel, mattis et erat.
+
+Vivamus sed neque eu neque maximus vestibulum. Nunc ornare lacus ac lacus tristique, eget tempus lorem dictum. Aenean ultrices tempus urna eu ullamcorper. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas placerat consectetur arcu sit amet fermentum. Sed gravida, felis id tincidunt blandit, lorem lectus ullamcorper lectus, vitae dictum odio nunc at lorem. Proin ut risus pharetra, imperdiet velit et, bibendum nibh. Quisque aliquet convallis libero, auctor porta purus porta sit amet. Donec quis venenatis nibh. Aenean urna leo, imperdiet et sagittis sit amet, lacinia a turpis. Morbi vehicula justo at mattis consectetur.
+
+## Función hash
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. In posuere dapibus lectus, sit amet viverra est semper id. Vivamus vulputate augue lorem, ac tristique lacus interdum id. In blandit sem nec enim molestie vehicula. Nullam vitae nulla mi. Maecenas a lacus faucibus, hendrerit erat eget, tincidunt sapien. Pellentesque sit amet felis interdum, tempor augue nec, rhoncus purus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc in lobortis risus, sed bibendum sem. Fusce accumsan gravida mi, vitae rutrum libero tincidunt a. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras sodales risus sed dui vestibulum porttitor. Morbi non fringilla massa. Aenean lacus libero, blandit nec sapien eget, facilisis euismod ligula. Aenean venenatis ex eget tristique volutpat.
+
+Fusce sodales id massa ac pharetra. Mauris ut nunc nisl. Nulla sit amet ultrices mi, eget euismod risus. Cras quam justo, dapibus vitae laoreet vel, cursus in enim. Quisque ut lectus vel turpis interdum mollis. Etiam iaculis sem sed lorem lacinia, id eleifend sem placerat. Praesent in orci in risus tincidunt tristique. Vestibulum id urna nisi. Aenean ultrices purus quis mattis viverra. Fusce accumsan quam sed nunc ultrices scelerisque. Suspendisse potenti.
+
+Proin id odio ut eros lacinia tincidunt vitae ac sem. Aenean laoreet consequat elit, sit amet convallis erat tempor sed. Nunc rutrum tortor magna, ac rhoncus mi convallis vel. Etiam lacus libero, commodo et orci a, aliquet sollicitudin purus. Donec blandit auctor ex, nec rhoncus massa fringilla nec. Sed at nunc dictum, molestie massa vel, tempus ipsum. Proin eget dignissim velit. Sed sapien orci, accumsan vel vulputate ac, placerat et est. Vestibulum ultricies mattis mi, sed venenatis metus dictum a. Etiam a nunc hendrerit, efficitur magna ut, pulvinar felis.
+
+Nullam non tincidunt mauris. Maecenas maximus velit et porta placerat. Ut et ultrices odio. Sed dapibus dolor at quam convallis cursus. Vivamus quis euismod purus, eu molestie nisi. Suspendisse eu blandit orci. Suspendisse potenti. Aenean ex mauris, aliquam sit amet rhoncus vel, mattis et erat.
+
+Vivamus sed neque eu neque maximus vestibulum. Nunc ornare lacus ac lacus tristique, eget tempus lorem dictum. Aenean ultrices tempus urna eu ullamcorper. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas placerat consectetur arcu sit amet fermentum. Sed gravida, felis id tincidunt blandit, lorem lectus ullamcorper lectus, vitae dictum odio nunc at lorem. Proin ut risus pharetra, imperdiet velit et, bibendum nibh. Quisque aliquet convallis libero, auctor porta purus porta sit amet. Donec quis venenatis nibh. Aenean urna leo, imperdiet et sagittis sit amet, lacinia a turpis. Morbi vehicula justo at mattis consectetur.
+
+## Firma digital
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. In posuere dapibus lectus, sit amet viverra est semper id. Vivamus vulputate augue lorem, ac tristique lacus interdum id. In blandit sem nec enim molestie vehicula. Nullam vitae nulla mi. Maecenas a lacus faucibus, hendrerit erat eget, tincidunt sapien. Pellentesque sit amet felis interdum, tempor augue nec, rhoncus purus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc in lobortis risus, sed bibendum sem. Fusce accumsan gravida mi, vitae rutrum libero tincidunt a. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras sodales risus sed dui vestibulum porttitor. Morbi non fringilla massa. Aenean lacus libero, blandit nec sapien eget, facilisis euismod ligula. Aenean venenatis ex eget tristique volutpat.
+
+Fusce sodales id massa ac pharetra. Mauris ut nunc nisl. Nulla sit amet ultrices mi, eget euismod risus. Cras quam justo, dapibus vitae laoreet vel, cursus in enim. Quisque ut lectus vel turpis interdum mollis. Etiam iaculis sem sed lorem lacinia, id eleifend sem placerat. Praesent in orci in risus tincidunt tristique. Vestibulum id urna nisi. Aenean ultrices purus quis mattis viverra. Fusce accumsan quam sed nunc ultrices scelerisque. Suspendisse potenti.
+
+Proin id odio ut eros lacinia tincidunt vitae ac sem. Aenean laoreet consequat elit, sit amet convallis erat tempor sed. Nunc rutrum tortor magna, ac rhoncus mi convallis vel. Etiam lacus libero, commodo et orci a, aliquet sollicitudin purus. Donec blandit auctor ex, nec rhoncus massa fringilla nec. Sed at nunc dictum, molestie massa vel, tempus ipsum. Proin eget dignissim velit. Sed sapien orci, accumsan vel vulputate ac, placerat et est. Vestibulum ultricies mattis mi, sed venenatis metus dictum a. Etiam a nunc hendrerit, efficitur magna ut, pulvinar felis.
+
+Nullam non tincidunt mauris. Maecenas maximus velit et porta placerat. Ut et ultrices odio. Sed dapibus dolor at quam convallis cursus. Vivamus quis euismod purus, eu molestie nisi. Suspendisse eu blandit orci. Suspendisse potenti. Aenean ex mauris, aliquam sit amet rhoncus vel, mattis et erat.
+
+Vivamus sed neque eu neque maximus vestibulum. Nunc ornare lacus ac lacus tristique, eget tempus lorem dictum. Aenean ultrices tempus urna eu ullamcorper. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas placerat consectetur arcu sit amet fermentum. Sed gravida, felis id tincidunt blandit, lorem lectus ullamcorper lectus, vitae dictum odio nunc at lorem. Proin ut risus pharetra, imperdiet velit et, bibendum nibh. Quisque aliquet convallis libero, auctor porta purus porta sit amet. Donec quis venenatis nibh. Aenean urna leo, imperdiet et sagittis sit amet, lacinia a turpis. Morbi vehicula justo at mattis consectetur.
+
+# ¿Qué tiene que ver esto con Bitcoin?
+
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. In posuere dapibus lectus, sit amet viverra est semper id. Vivamus vulputate augue lorem, ac tristique lacus interdum id. In blandit sem nec enim molestie vehicula. Nullam vitae nulla mi. Maecenas a lacus faucibus, hendrerit erat eget, tincidunt sapien. Pellentesque sit amet felis interdum, tempor augue nec, rhoncus purus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc in lobortis risus, sed bibendum sem. Fusce accumsan gravida mi, vitae rutrum libero tincidunt a. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras sodales risus sed dui vestibulum porttitor. Morbi non fringilla massa. Aenean lacus libero, blandit nec sapien eget, facilisis euismod ligula. Aenean venenatis ex eget tristique volutpat.
+
+Fusce sodales id massa ac pharetra. Mauris ut nunc nisl. Nulla sit amet ultrices mi, eget euismod risus. Cras quam justo, dapibus vitae laoreet vel, cursus in enim. Quisque ut lectus vel turpis interdum mollis. Etiam iaculis sem sed lorem lacinia, id eleifend sem placerat. Praesent in orci in risus tincidunt tristique. Vestibulum id urna nisi. Aenean ultrices purus quis mattis viverra. Fusce accumsan quam sed nunc ultrices scelerisque. Suspendisse potenti.
+
+Proin id odio ut eros lacinia tincidunt vitae ac sem. Aenean laoreet consequat elit, sit amet convallis erat tempor sed. Nunc rutrum tortor magna, ac rhoncus mi convallis vel. Etiam lacus libero, commodo et orci a, aliquet sollicitudin purus. Donec blandit auctor ex, nec rhoncus massa fringilla nec. Sed at nunc dictum, molestie massa vel, tempus ipsum. Proin eget dignissim velit. Sed sapien orci, accumsan vel vulputate ac, placerat et est. Vestibulum ultricies mattis mi, sed venenatis metus dictum a. Etiam a nunc hendrerit, efficitur magna ut, pulvinar felis.
+
+Nullam non tincidunt mauris. Maecenas maximus velit et porta placerat. Ut et ultrices odio. Sed dapibus dolor at quam convallis cursus. Vivamus quis euismod purus, eu molestie nisi. Suspendisse eu blandit orci. Suspendisse potenti. Aenean ex mauris, aliquam sit amet rhoncus vel, mattis et erat.
+
+Vivamus sed neque eu neque maximus vestibulum. Nunc ornare lacus ac lacus tristique, eget tempus lorem dictum. Aenean ultrices tempus urna eu ullamcorper. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas placerat consectetur arcu sit amet fermentum. Sed gravida, felis id tincidunt blandit, lorem lectus ullamcorper lectus, vitae dictum odio nunc at lorem. Proin ut risus pharetra, imperdiet velit et, bibendum nibh. Quisque aliquet convallis libero, auctor porta purus porta sit amet. Donec quis venenatis nibh. Aenean urna leo, imperdiet et sagittis sit amet, lacinia a turpis. Morbi vehicula justo at mattis consectetur.

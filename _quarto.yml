@@ -1,0 +1,26 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "zeemarquez.github.io"
+  navbar:
+    right:
+      - about.qmd
+      - icon: github
+        href: https://github.com/
+      - icon: twitter
+        href: https://twitter.com
+format:
+  html:
+    theme: litera
+    css: styles.css
+    code-tools: true
+    code-block-bg: true
+    code-block-border-left: "#31BAE9"
+    highlight-style: github
+    
+
+
+
+

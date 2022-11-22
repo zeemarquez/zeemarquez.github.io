@@ -1,0 +1,408 @@
+---
+title: "Crea tu propia blockchain"
+author: "Zee Marquez"
+date: "2022-11-18"
+categories: [news, code, analysis]
+image: "block1.jpg"
+page-layout: full
+lang: es
+execute: 
+  cache: true
+gfm:
+    mermaid-format: png
+---
+
+```{python}
+import hashlib as hs
+import time
+```
+
+First we will create a 
+
+```{mermaid}
+classDiagram
+    class Transaction
+    Transaction : +sender
+    Transaction : +receiver
+    Transaction : +value
+
+
+    class Block
+    Block : +timestamp
+    Block : +List~Transaction~ transactions
+    Block : +prevHash
+    Block : +hash
+    Block : +nonce
+    Block : +calculateHash()
+    Block : +mineBlock(difficulty)
+
+    class Blockchain
+    Blockchain : +difficulty
+    Blockchain : +miningReward
+    Blockchain : +List~Block~ chain
+    Blockchain : +pendingTransactions
+    Blockchain : +createGenBlock()
+    Blockchain : +getLastBlock()
+    Blockchain : +addBlock(newBlock)
+    Blockchain : +minePending(minerAddress)
+    Blockchain : +stageTransaction(transaction)
+    Blockchain : +isValid()
+    Blockchain : +checkBalance(address)
+    Blockchain : +isTransactionValid(transaction)
+
+```
+
+```{python}
+class Transaction:
+    def __init__(self, sender, receiver, value):
+        self.sender = sender
+        self.receiver = receiver
+        self.value = value
+    
+```
+
+
+```{python}
+class Block:
+    def __init__(self, timestamp, transactions):
+        self.timestamp = timestamp
+        self.transactions = transactions
+        self.prevHash = None
+        self.hash = None
+        self.nonce = 0
+
+        
+    def calculateHash(self):
+        return hs.sha256((''.join([self.timestamp, ''.join(str(x) for x in self.transactions), self.prevHash, str(self.nonce)])).encode()).hexdigest()
+    
+    def mineBlock(self, difficulty):
+        while True:
+            self.hash = self.calculateHash()
+            if self.hash[0:difficulty] == "".join(["0" for x in range(difficulty)]):
+                break
+            self.nonce += 1
+            
+        print("Block mined:",self.hash)
+
+```
+
+
+```{python}
+class Blockchain:
+    
+    sysAddress = "0000"     #La direccion desde donde se manda la recompensa de minar
+    
+    def __init__(self):
+        self.difficulty = 2         #El numero de ceros por el que empieza el hash del nuevo bloque
+        self.miningReward = 100
+        self.chain = [self.createGenBlock()]
+        self.pendingTransactions = []
+        
+        
+        
+    def createGenBlock(self):
+        genBlock = Block(str(time.time()),[Transaction(Blockchain.sysAddress,'satoshi',100)])
+        genBlock.prevHash = '0'
+        genBlock.hash = genBlock.calculateHash()
+        return genBlock
+    
+    def getLastBlock(self):
+        return self.chain[-1]
+    
+    def addBlock(self, newBlock):
+        newBlock.prevHash = self.getLastBlock().hash
+        newBlock.mineBlock(self.difficulty)
+        self.chain.append(newBlock)
+    
+    def minePending(self, minerAddress):
+        self.pendingTransactions.append(Transaction(Blockchain.sysAddress, minerAddress, self.miningReward))
+        block = Block(str(time.time()), self.pendingTransactions)
+        self.addBlock(block)
+        self.pendingTransactions = []
+        
+    def stageTransaction(self, transaction):
+        if self.isTransactionValid(transaction):
+            self.pendingTransactions.append(transaction)
+        else:
+            print("Transaction invalid")
+        
+    def isValid(self):
+        for i in range(1,len(self.chain)):
+            
+            if self.chain[i-1].hash != self.chain[i].prevHash:
+                return False
+            
+            if self.chain[i].hash != self.chain[i].calculateHash():
+                return False
+            
+        return True
+    
+    def checkBalance(self, address):
+        balance = 0
+        for block in self.chain:
+            for trans in block.transactions:
+                if trans.sender == address:
+                    balance -= trans.value
+                if trans.receiver == address:
+                    balance += trans.value
+        return balance
+    
+    def isTransactionValid(self, transaction):
+        if self.checkBalance(transaction.sender) < transaction.value:
+            
+            return False
+        else:
+            return True
+        
+```
+
+
+```{python}
+zcoin = Blockchain()
+
+zcoin.minePending('alice')
+
+zcoin.stageTransaction(Transaction('alice', 'bob', 25))
+
+zcoin.minePending('bob')
+
+print('\nBalance Alice:', zcoin.checkBalance('alice'))
+print('Balance Bob:', zcoin.checkBalance('bob'))
+```
+
+
+```{python}
+zcoin.isValid()
+```
+
+```zsh
+pip install eciespy
+```
+
+```{python}
+from ecies import utils
+from ecies import encrypt, decrypt
+import ecies 
+
+def genKeyPair():
+    private_key = utils.generate_key()
+    public_key = private_key.public_key
+    return (private_key.to_hex(),public_key.format().hex())
+
+def sign(data, signingKey):
+    k = utils.generate_key().from_hex(signingKey)
+    return k.sign(data.encode())
+    
+def verify(data, signature, publicKey):
+    try:
+        kpub = ecies.hex2pub(publicKey)
+    except:
+        return False
+    return kpub.verify(signature, data.encode())
+    
+    
+def getPublicKey(private_key):
+    k = utils.generate_key().from_hex(private_key)
+    return k.public_key.format().hex()
+    
+```
+
+
+```{python}
+private_key, public_key = genKeyPair()
+
+print('Private: ', private_key)
+print('Public: ', public_key)
+```
+
+
+```{python}
+sig = sign('message', private_key)
+
+print(verify('message', sig, public_key))
+
+print(getPublicKey(private_key))
+
+
+```
+
+# Secure Blockchain
+
+Now we will implement the secure blockchain
+
+
+```{python}
+class Transaction:
+    def __init__(self, sender, receiver, value):
+        self.sender = sender
+        self.receiver = receiver
+        self.value = value
+        self.signature = None
+        
+    def calculateHash(self):
+        
+        return hs.sha256((''.join([self.sender, self.receiver, str(self.value)])).encode()).hexdigest()
+    
+    def signTransaction(self, signKey):
+        
+        if getPublicKey(signKey) != self.sender:
+            print("You cannot sign transactions for other wallets!")
+            
+        hashTx = self.calculateHash()
+        self.signature =  sign(hashTx, signKey)
+        
+    def isValid(self):
+        
+        if self.sender == Blockchain.sysAddress:
+            return True
+        
+        if self.signature == None:
+            return False
+        
+        public_key = getPublicKey(self.sender)
+        
+        return verify(self.calculateHash(), self.signature, public_key)
+            
+```
+
+
+```{python}
+class Block:
+    def __init__(self, timestamp, transactions):
+        self.timestamp = timestamp
+        self.transactions = transactions
+        self.prevHash = None
+        self.hash = None
+        self.nonce = 0
+
+    def calculateHash(self):
+        return hs.sha256((''.join([self.timestamp, str(self.transactions), self.prevHash, str(self.nonce)])).encode()).hexdigest()
+    
+    def mineBlock(self, difficulty):
+        while True:
+            self.hash = self.calculateHash()
+            if self.hash[0:difficulty] == "".join(["0" for x in range(difficulty)]):
+                break
+            self.nonce += 1
+            
+        print("Block mined:",self.hash)
+        
+    def checkValidTransactions(self):
+        for tx in self.transactions:
+            if not tx.isValid():
+                return False
+        return True
+    
+    def __str__(self):
+        return '\n'.join([ '|' + key + '|\t' + self.__dict__[key].__str__() +'|' for key in self.__dict__ ]) 
+```
+
+
+```{python}
+class Blockchain:
+    
+    sysAddress = "0000"
+    
+    def __init__(self):
+        self.difficulty = 2
+        self.miningReward = 100
+        self.chain = [self.createGenBlock()]
+        self.pendingTransactions = []
+        
+    def createGenBlock(self):
+        genBlock = Block(str(time.time()),[Transaction(Blockchain.sysAddress,'satoshi',100)])
+        genBlock.prevHash = '0'
+        genBlock.hash = genBlock.calculateHash()
+        return genBlock
+    
+    def getLastBlock(self):
+        return self.chain[-1]
+    
+    def addBlock(self, newBlock):
+        newBlock.prevHash = self.getLastBlock().hash
+        newBlock.mineBlock(self.difficulty)
+        self.chain.append(newBlock)
+    
+    def minePending(self, minerAddress):
+        self.pendingTransactions.append(Transaction(Blockchain.sysAddress, minerAddress, self.miningReward))
+        block = Block(str(time.time()), self.pendingTransactions)
+        self.addBlock(block)
+        self.pendingTransactions = []
+        
+    def stageTransaction(self, transaction):
+        if self.isTransactionValid(transaction):
+            self.pendingTransactions.append(transaction)
+        else:
+            raise Exception("Transaction invalid")
+        
+    def isValid(self):
+        for i in range(1,len(self.chain)):
+            
+            if self.chain[i-1].hash != self.chain[i].prevHash:
+                return False
+            
+            if self.chain[i].hash != self.chain[i].calculateHash():
+                return False
+            
+            #Added check of valid transactions
+            if not self.chain[i].checkValidTransactions():
+                return False
+            
+        return True
+    
+    def checkBalance(self, address):
+        balance = 0
+        for block in self.chain:
+            for trans in block.transactions:
+                if trans.sender == address:
+                    balance -= trans.value
+                if trans.receiver == address:
+                    balance += trans.value
+        return balance
+    
+    def isTransactionValid(self, transaction):
+        if self.checkBalance(transaction.sender) < transaction.value:
+            return False
+        else:
+            return True
+    
+```
+
+
+```{python}
+myKey, myWalletAddress = genKeyPair()
+
+AliceKey, AliceWalletAddress = genKeyPair()
+BobKey, BobWalletAddress = genKeyPair()
+
+del AliceKey, BobKey
+
+print('My address:', myWalletAddress)
+print('Alice address:', AliceWalletAddress)
+print('Bob address:', BobWalletAddress)
+```
+
+
+```{python}
+zcoin = Blockchain()
+
+zcoin.minePending(myWalletAddress)
+print('My balance:',zcoin.checkBalance(myWalletAddress))
+```
+
+
+```{python}
+tx1 = Transaction(myWalletAddress, AliceWalletAddress, 50)
+tx2 = Transaction(myWalletAddress, BobWalletAddress, 25)
+
+tx1.signTransaction(myKey)
+tx2.signTransaction(myKey)
+
+zcoin.stageTransaction(tx1)
+zcoin.stageTransaction(tx2)
+
+zcoin.minePending(AliceWalletAddress)
+
+print('My balance:',zcoin.checkBalance(myWalletAddress))
+```
+
