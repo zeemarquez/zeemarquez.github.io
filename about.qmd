@@ -1,6 +1,6 @@
 ---
 title: "Sobre mi"
-image: profile.jpg
+image: zee.jpg
 about:
   template: jolla
   links:

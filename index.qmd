@@ -1,5 +1,5 @@
 ---
-title: "zeemarquez.github.io"
+title: "Posts"
 lang: es
 listing:
   contents: posts
