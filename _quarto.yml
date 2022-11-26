@@ -2,6 +2,9 @@ project:
   type: website
   output-dir: docs
 
+filters:
+  - shinylive
+
 website:
   title: "zeemarquez.github.io"
   navbar:
@@ -16,8 +19,6 @@ format:
     theme: litera
     css: styles.css
     code-tools: true
-    code-block-bg: true
-    code-block-border-left: "#31BAE9"
     highlight-style: github
     
 

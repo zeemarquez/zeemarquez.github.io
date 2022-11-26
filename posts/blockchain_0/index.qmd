@@ -8,6 +8,9 @@ lang: es
 page-layout: full
 toc: true
 linestretch: 1.75
+
+filters:
+  - shinylive
 ---
 
 # Lo básico
@@ -36,11 +39,11 @@ Imaginemos el caso de un grupo de amigos que quieren llevar las cuentas de su vi
 
 ![](diagram_notebook.png){width=75% fig-align="center"}
 
-Si Pedro decide modificar la página 2 de su cuaderno y se anota 85€ en vez de 15€ entonces el codigo apuntado en la página 3, "A20P15" no cuadra, deberia ser "A20P85". Así podemos comprobar que alguien ha modificado la página 2 y al verificar el cuaderno de Pedro veriamos que es incorrecto, no cuadra. Así cada vez que añadamos una página nueva al cuaderno verificamos los cuadernos y por votación se eligen los cuadernos de Alicia y Juan para formar parte del "cuaderno oficial"
+Si Pedro decide modificar la página 2 de su cuaderno y se anota `85€` en vez de `15€` entonces el codigo apuntado en la página 3: `"A20P15"` no cuadra, deberia ser `"A20P85"`. Así podemos comprobar que alguien ha modificado la página 2 y al verificar el cuaderno de Pedro veriamos que es incorrecto, no cuadra. Así cada vez que añadamos una página nueva al cuaderno verificamos los cuadernos y por votación se eligen los cuadernos de Alicia y Juan para formar parte del "cuaderno oficial"
 
 ![](voting.png){width=75% fig-align="center"}
 
-Pero aquí surgen algunos problemas que no hemos tenido en cuenta. Cualquiera puede modificar una página del cuaderno y modificar todos los códigos sucesivos para validar el cuaderno. De esta forma nadie podria sospechar que se ha modificado el cuaderno y al verificarlo pareceria que está todo en orden. Esto se soluciona haciendo que cueste mucho trabajo modificar el codigo de cada pagina, de forma que quien intente modificar todas las páginas tenga que realizar una cantidad de trabajo prácticamente imposible. Podemos hacer que haya que incluir la solucion a una ecuacion en el codigo de cada pagina. Resolver esta operación matematica cuesta tiempo, esto es lo que comunmente se llama "proof-of-work" o prueba de trabajo, es decir que para añadir una pagina nueva tienes que demostrar que has realizado una cantidad de trabajo que haria imposible modificar todas las páginas en un periodo de tiempo razonable.
+Pero aquí surgen algunos problemas que no hemos tenido en cuenta. Cualquiera puede modificar una página del cuaderno y modificar todos los códigos sucesivos para validar el cuaderno. De esta forma nadie podria sospechar que se ha modificado el cuaderno y al verificarlo pareceria que está todo en orden. Esto se soluciona haciendo que cueste mucho trabajo modificar el codigo de cada pagina, de forma que quien intente modificar todas las páginas tenga que realizar una cantidad de trabajo prácticamente imposible. Podemos hacer que haya que incluir la solucion a una ecuacion en el codigo de cada pagina. Resolver esta operación matematica cuesta tiempo, esto es lo que comunmente se llama ["proof-of-work"](https://es.wikipedia.org/wiki/Sistema_de_prueba_de_trabajo) o prueba de trabajo, es decir que para añadir una pagina nueva tienes que demostrar que has realizado una cantidad de trabajo que haria imposible modificar todas las páginas en un periodo de tiempo razonable.
 
 Otro problema es que cualquiera puede hacerse pasar por otra persona. Por lo que necesitamos alguna forma de "firmar" las páginas de tal forma que se pueda verificar que cada gasto ha sido anotado por la persona correspondiente.
 
@@ -54,11 +57,86 @@ La criptografia nos permite cifrar información o firmar datos mediante el uso d
 
 ## Función hash
 
-[generador hash](https://emn178.github.io/online-tools/sha256.html)
+La [función hash](https://es.wikipedia.org/wiki/Funci%C3%B3n_hash) es una de las herramientas criptograficas más importantes y es imprescindible para crean una blockchain. Aunque el funcionamiento de una función hash puede ser muy complicado el concepto es bastante simple. Se trata de una función que convierte una entrada (la palabla "hola" por ejemplo) en un a salida que parece aleatoria. 
 
-{{< video video.mp4 >}}
+![](hash.png){width=75% fig-align="center"}
+
+Lo que hace a la función hash tan util es que siempre devuelve un resultado del mismo tamaño. Existen muchos tipos de algoritmos hash diferentes, uno de los mas usado es el [SHA256](https://es.wikipedia.org/wiki/SHA-2), que devuelve 256 bits. Da igual que la entrada de la función sea la letra "a" o el Quijote entero, siempre el resultado son 256 bits. Prueba a experimentar con la función hash:
+
+```{shinylive-python}
+#| standalone: true
+import hashlib as hs
+from shiny import *
+
+app_ui = ui.page_fluid(
+  ui.tags.style(
+        """
+        .app-col {
+            border: 1px solid white;
+            border-radius: 5px;
+            background-color: #ffffff;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 2px;
+        }
+        """
+    ),
+  
+  ui.row(
+    ui.div(
+                {"class": "app-col"},
+                ui.p(
+                    ui.input_text("x", "", placeholder="hola"), 
+                ),
+                ui.p(
+                    ui.output_text("txt"),
+                ),
+            ),
+            align="center",
+)
+)
+
+def server(input, output, session):
+  @output
+  @render.text
+  def txt():
+    if len(input.x()) == 0:
+      hash = hs.sha256(("hola").encode()).hexdigest()
+    else:
+      hash = hs.sha256((input.x()).encode()).hexdigest()
+    return f'{hash}'
+
+
+app = App(app_ui, server, debug=True)
+
+```
+
+
+La función hash es caotica, que quiere decir que un minusculo cambio a la entrada (por ejemplo poner la "h" en mayuscula) provoca un resultado completamente diferente. Es importante distinguir caotico de aleatorio, la función hash no es aleatoria, es determinista, siempre devolverá la misma salida a la misma entrada. Se podría comparar la función hash con el doble péndulo, otro ejemplo de sistema caotico. Cambiar un poquito las condiciones iniciales del doble pendulo provoca resultados de movimiento completamente diferentes. 
+En el ejemplo inferior parece que los dos pendulos son iguales al principio, pero en realidad tienen un cambio despreciable en el angulo inicial, pero este minusculo cambio es suficiente para alterar por completo el resultado. 
+
+::: {layout-ncol=2}
+![](video.gif)
+
+![](video3.gif)
+:::
+
+Otra caracteristica del sistema de doble pendulo es que pasado un tiempo es practicamente imposible deducir el estado inicial del pendulo. De la misma forma, es imposible conocer que entrada a la función hash dará un resultado especifico, o en otras palabras, es imposible hacer la función hash al reves. La unica forma de saber que resultado dará una entrada es realizando la función hash sobre esa entrada. 
+
+Si recuerdas los problemas mencionados antes, la función hash resuleve uno de los problemas: codificar la información de cada página (o bloque) de una forma única, determinista y con un tamaño fijo. De esta forma los bloques se "encadenan" porque cada bloque contiene el hash del bloque anterior. 
+
+![](diagram_blockchain1.png){width=85% fig-align="center"}
+
+La función hash también nos permite implementar la prueba de trabajo. Computar la función hash requiere una cantidad de tiempo. Como podias ver en la función hash interactiva de antes, no se tarda mucho en calcular, pero si se ejecuta varias veces se empieza a notar. Para implementar la prueba de trabajo en una blockchain podemos, por ejemplo, añadir una variable libre (nonce) a la entrada de la funcion hash y exigir que el hash de cada bloque empieze por `"0000"`. Como es imposible saber que entrada resultara en un hash que comienze por `"0000"`, la unica forma es probar y probar hasta acertar. Este proceso de probar miles de entradas posibles para la función hash requiere computación y tiempo. Por ejemplo, usando la palabra `"hola"` como entrada del hash, probamos `"hola_0"`, `"hola_1"`, `"hola_2"`... Al final después de un tiempo resolvemos la prueba de trabajo, si se hashea `"hola_167537"`obtenemos: 
+
+```default
+0000c24a5157df9c08de36972e30404e463b1e76bbb25007395d455b9494ad77"
+```
+
 
 ## Firma digital
+
+
 
 
 # ¿Qué tiene que ver esto con Bitcoin?
