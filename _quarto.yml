@@ -20,6 +20,7 @@ format:
     css: styles.css
     code-tools: true
     highlight-style: github
+    body-text-align: right
     
 
 
