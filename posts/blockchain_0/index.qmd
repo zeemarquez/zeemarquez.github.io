@@ -12,6 +12,8 @@ fig-cap-location: top
 filters:
   - shinylive
 code-tools: false
+twitter-card:
+  image: "https://zeemarquez.github.io/posts/blockchain_0/blockchain_post.gif"
 ---
 
 En este post intento explicar lo que es una blockchain de la forma más simple, visual e interactiva posible. No es necesario tener conocimientos de programación o criptografía para entender como funciona una blockchain. Si quieres entrar más en detalle tengo otro [post](https://zeemarquez.github.io/posts/blockchain_1/) explicando como programar una blockchain en Python desde cero.
