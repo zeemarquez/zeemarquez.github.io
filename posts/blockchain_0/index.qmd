@@ -1,7 +1,7 @@
 ---
 title: "Blockchain, ¿qué es eso?"
 author: "Zee Marquez"
-date: "2022-11-10"
+date: "2022-11-28"
 categories: [bitcoin, blockchain]
 image: "block0.jpg"
 lang: es
@@ -11,8 +11,10 @@ linestretch: 1.75
 fig-cap-location: top
 filters:
   - shinylive
+code-tools: false
 ---
 
+En este post intento explicar lo que es una blockchain de la forma más simple, visual e interactiva posible. No es necesario tener conocimientos de programación o criptografia para entender como funciona una blockchain. Si quieres entrar más en detalle tengo otro [post](https://zeemarquez.github.io/posts/blockchain_1/) explicando como programar una blockchain en Python desde cero.
 
 # Lo básico
 
@@ -34,7 +36,7 @@ Existen muchos casos en los que no conviene confiar en una persona o entidad par
 
 Una blockchain es una herramienta que nos permite crear una red descentralizada en la que todo el mundo pueda confiar en la veracidad de la información apuntada, aunque nadie se fie de nadie. Una blockchain nos permite registrar información inmutable y de forma secuencial. 
 
-Imaginemos el caso de un grupo de amigos que quieren llevar las cuentas de su viaje al caribe. Para ello han comprado un cuaderno común y en cada página apuntan cada gasto. Si en el grupo de amigos todos se fían de todos pues genial, pero ¿qué pasa si no se pueden fiar?, uno de ellos podría modificar el gasto en una de las páginas y así robarle dinero al resto. La solución es "descentralizar" el cuaderno, o en otras palabras que cada uno tenga una copia exacta del cuaderno, pero a priori, esto no parece solucionar nada, ¿cómo sabemos si alguien ha modificado su copia del cuaderno? Podríamos solucionar esto haciendo las páginas inmutables, escribiendo en las páginas con boli, por ejemplo. Pero al final siempre se puede arrancar la página y meter una nueva modificada, y en el mundo digital todo se puede modificar sin dejar rastro. Lo que podemos hacer para asegurarnos que nadie ha modificado el cuaderno, es que las paginas estén encadenadas de alguna forma que al modificar un detallito de una pagina el cuaderno deje de tener sentido, esto se puede conseguir haciendo que la información de cada página esté codificada de alguna forma con la siguiente página. Por ejemplo, apuntamos en la parte de abajo de cada página la inicial y la cantidad del gasto de la página anterior, y vamos encadenadnos estos códigos. De está forma si alguien modifica una página, entonces cualquiera puede comprobar que los códigos que encadenan las páginas no cuadran. 
+Imaginemos el caso de un grupo de amigos que quieren llevar las cuentas de su viaje al caribe. Para ello han comprado un cuaderno común y en cada página apuntan cada gasto. Si en el grupo de amigos todos se fían de todos pues genial, pero ¿qué pasa si no se pueden fiar?, uno de ellos podría modificar el gasto en una de las páginas y así robarle dinero al resto. La solución es "descentralizar" el cuaderno, o en otras palabras que cada uno tenga una copia exacta del cuaderno, pero a priori, esto no parece solucionar nada, ¿cómo sabemos si alguien ha modificado su copia del cuaderno? Podríamos solucionar esto haciendo las páginas inmutables, escribiendo en las páginas con boli, por ejemplo. Pero al final siempre se puede arrancar la página y meter una nueva modificada, y en el mundo digital todo se puede modificar sin dejar rastro. Lo que podemos hacer para asegurarnos que nadie ha modificado el cuaderno, es que las paginas estén encadenadas de tal forma que al modificar un detallito de una pagina el cuaderno deje de tener sentido. Esto se puede conseguir haciendo que la información de cada página esté codificada en la siguiente página y así sucesivamente. Por ejemplo, apuntamos en la parte de abajo de cada página la inicial de la persona y la cantidad del gasto de la página anterior, y vamos encadenadnos estos códigos. De está forma si alguien modifica una página, entonces cualquiera puede comprobar que los códigos que encadenan las páginas no cuadran. 
 
 ![](diagram_notebook.png){width=75% fig-align="center"}
 
@@ -155,11 +157,12 @@ Cuando se mina un nuevo bloque, el minero correspondiente recibe una "recompensa
 
 Bitcoin es una moneda pseudo-anonima, todas las transaciones son publicas y [rastreables](https://blockstream.info/) por cualquier persona, pero es imposible saber a que persona en el mundo real corresponde cada dirección de bitcoin. Existen formas de saber la relación entre la persona real y la digital, por ejemplo, las empresas de exchange (Binance, Coinbase ...) estan obligadas por ley a identificar a los usuarios. Por lo tanto cuando compras bitcoins en un exchange, se sabe a quien estan asociados esos bitcoins. Por supuesto, existen formas de evitar esto, por ejemplo comprando bitcoins en efectivo o a través de la deepweb.
 
-Se dice mucho que Bitcoin no tiene valor, que no sirve para nada o incluso que es una estafa. Como hemos visto Bitcoin ofrece muchas ventajas que le dan valor. Es una moneda descentralizada, real, anonima, de oferta limitada y universal. Esto quiere decir que cualquier persona, desde un ganadero en Afganistán a un pescador de Zimbawe puede participar en la economia internacional sin pedrile permiso a nadie, sin ser de ninguna nacionalidad o sin tener que confiar en que el dictador de turno no decida imprimir dinero sin parar y devaluar la moneda. No quiero entrar en el tema de la politica monetaria, que me daria para un par más de posts, pero nos encontramos ante una crisis inflacionaria porque básicamente todo nuestro sistema monetario se basa en confiar en unos señores en los bancos centrales que tienen el poder absoluto sobre el dinero.
+Se dice mucho que Bitcoin no tiene valor, que no sirve para nada o incluso que es una estafa. Como hemos visto Bitcoin ofrece muchas ventajas que le dan valor. Es una moneda descentralizada, real, anonima, de oferta limitada y universal. Esto quiere decir que cualquier persona, desde un ganadero en Afganistán a un pescador de Zimbawe puede participar en la economia internacional sin pedrile permiso a nadie, sin ser de ninguna nacionalidad o sin tener que confiar en que el dictador de turno no decida imprimir dinero sin parar y devaluar la moneda. Los participantes de Bitcoin no se tienen que fiar de nadie, simplemente tienen que confiar en la criptografia y las matematicas. 
+No quiero entrar en el tema de la politica monetaria, que me daria para un libro, pero nos encontramos ante una crisis inflacionaria porque nuestro sistema monetario se basa en confiar en unos señores en los bancos centrales que tienen el poder absoluto sobre el dinero.
 
 # Observaciones
 
-Por supuesto que me he dejado muchos detalles, no se dice por nada que Satoshi Nakamoto (el suspuesto creador de Bitcoin) era un genio. La propia historia de la creación de Bitcoin y el misterio de su creador daria para una pelicula. Crear una blockchain es muy complejo y existen muchos problemas nada faciles de resolver. Si quieres saber más te dejo aquí algunos enlaces interesantes:
+Por supuesto que me he dejado muchos detalles, no se dice por nada que Satoshi Nakamoto (el suspuesto creador de Bitcoin) era un genio. La propia historia de la creación de Bitcoin y el misterio de Satoshi Nakamoto daria para una pelicula. Crear una blockchain es muy complejo y existen muchos problemas nada faciles de resolver. Si quieres saber más te dejo aquí algunos enlaces interesantes:
 
 * Statoshi Nakamoto, *Bitcoin paper* <https://bitcoin.org/bitcoin.pdf>
 

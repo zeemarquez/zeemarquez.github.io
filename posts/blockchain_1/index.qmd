@@ -1,7 +1,7 @@
 ---
 title: "Crea tu propia blockchain"
 author: "Zee Marquez"
-date: "2022-11-18"
+date: "2022-11-20"
 categories: [python, code, blockchain, bitcoin]
 image: "block1.jpg"
 page-layout: full
@@ -12,6 +12,7 @@ execute:
   cache: true
 gfm:
     mermaid-format: png
+code-tools: true
 ---
 
 # Blockchain simple

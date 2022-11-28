@@ -4,7 +4,7 @@
     "href": "posts/blockchain_0/index.html",
     "title": "Blockchain, ¿qué es eso?",
     "section": "",
-    "text": "La Wikipedia define blockchain como: “una etiqueta que a través de una estructura de datos cuya información se agrupa en conjuntos (bloques) a los que se le añade metainformaciones relativas a otro bloque de la cadena anterior en una línea temporal para hacer un seguimiento seguro a través de grandes cálculos criptográficos”. ¿Pero qué significa todo esto? La traducción literal de “blockchain” al español es: “cadena de bloques”. Pero ¿qué son estos “bloques”?, ¿y por qué están “encadenados”?\nCuando hablamos de una cadena de bloques nos referimos a una serie de objetos, o bloques, que contienen una información, pero no son un grupo de objetos sin relación entre ellos, sino que cada objeto hace referencia al anterior. Imaginemos por ejemplo un libro, al final podemos definir un libro como una cadena de paginas o “page-chain”, el libro solo tiene sentido si las paginas están ordenadas correctamente.\n\n\n\n\n\nEn una blockchain cada bloque sería como una pagina de un libro que hace referencia a la pagina anterior. Vale, pero esto para qué sirve."
+    "text": "En este post intento explicar lo que es una blockchain de la forma más simple, visual e interactiva posible. No es necesario tener conocimientos de programación o criptografia para entender como funciona una blockchain. Si quieres entrar más en detalle tengo otro post explicando como programar una blockchain en Python desde cero."
   },
   {
     "objectID": "posts/blockchain_0/index.html#función-hash",
@@ -32,14 +32,14 @@
     "href": "index.html",
     "title": "Posts",
     "section": "",
-    "text": "Crea tu propia blockchain\n\n\n\n\n\n\n\npython\n\n\ncode\n\n\nblockchain\n\n\nbitcoin\n\n\n\n\n\n\n\n\n\n\n\n18 nov 2022\n\n\nZee Marquez\n\n\n\n\n\n\n  \n\n\n\n\nBlockchain, ¿qué es eso?\n\n\n\n\n\n\n\nbitcoin\n\n\nblockchain\n\n\n\n\n\n\n\n\n\n\n\n10 nov 2022\n\n\nZee Marquez\n\n\n\n\n\n\nNo hay resultados"
+    "text": "Blockchain, ¿qué es eso?\n\n\n\n\n\n\n\nbitcoin\n\n\nblockchain\n\n\n\n\n\n\n\n\n\n\n\n28 nov 2022\n\n\nZee Marquez\n\n\n\n\n\n\n  \n\n\n\n\nCrea tu propia blockchain\n\n\n\n\n\n\n\npython\n\n\ncode\n\n\nblockchain\n\n\nbitcoin\n\n\n\n\n\n\n\n\n\n\n\n20 nov 2022\n\n\nZee Marquez\n\n\n\n\n\n\nNo hay resultados"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "Sobre mi",
     "section": "",
-    "text": "Hola! Mi nombre es Zee Márquez y soy ingeniero mecánico. Actualmente estoy estudiando un master de ingenieria aeroespacial especializado en aerodinamica y energia eólica en TU Delft. En este blog voy subiendo curisosidades, articulos y proyectos de temas que me llaman la atención. Entre los temas que abarco en este blog están el blockchain, simulación, optimización y más."
+    "text": "¡Hola! Mi nombre es Zee Márquez y soy ingeniero mecánico. Actualmente estoy estudiando un máster de ingeniería aeroespacial especializado en aerodinámica y energía eólica en TU Delft. En este blog voy subiendo curiosidades, artículos y proyectos de temas que me llaman la atención. Entre los temas que abarco en este blog están el blockchain, simulación, optimización y más."
   },
   {
     "objectID": "posts/blockchain_1/index.html#firma-digital",
