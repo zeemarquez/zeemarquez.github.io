@@ -12,12 +12,13 @@ gfm:
     mermaid-format: png
 ---
 
+# Blockchain simple
+
 ```{python}
 import hashlib as hs
 import time
 ```
 
-First we will create a 
 
 ```{mermaid}
 classDiagram
@@ -52,6 +53,7 @@ classDiagram
 
 ```
 
+## Transacciones
 ```{python}
 class Transaction:
     def __init__(self, sender, receiver, value):
@@ -61,7 +63,7 @@ class Transaction:
     
 ```
 
-
+## Bloque
 ```{python}
 class Block:
     def __init__(self, timestamp, transactions):
@@ -87,6 +89,7 @@ class Block:
 ```
 
 
+## Blockchain
 ```{python}
 class Blockchain:
     
@@ -156,6 +159,7 @@ class Blockchain:
         
 ```
 
+## Prueba
 
 ```{python}
 zcoin = Blockchain()
@@ -174,6 +178,11 @@ print('Balance Bob:', zcoin.checkBalance('bob'))
 ```{python}
 zcoin.isValid()
 ```
+
+
+# Blockchain segura
+
+## Firma digital
 
 ```zsh
 pip install eciespy
@@ -226,10 +235,7 @@ print(getPublicKey(private_key))
 
 ```
 
-# Secure Blockchain
-
-Now we will implement the secure blockchain
-
+## Transacciones
 
 ```{python}
 class Transaction:
@@ -265,6 +271,7 @@ class Transaction:
             
 ```
 
+## Bloque
 
 ```{python}
 class Block:
@@ -297,6 +304,7 @@ class Block:
         return '\n'.join([ '|' + key + '|\t' + self.__dict__[key].__str__() +'|' for key in self.__dict__ ]) 
 ```
 
+## Blockchain
 
 ```{python}
 class Blockchain:
@@ -368,6 +376,7 @@ class Blockchain:
     
 ```
 
+## Prueba
 
 ```{python}
 myKey, myWalletAddress = genKeyPair()
