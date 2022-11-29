@@ -15,14 +15,22 @@ gfm:
 code-tools: true
 ---
 
-# Blockchain simple
+En este post explico como programar una blockchain, especificamente una criptomoneda, desde cero en Python. Te recomiendo que le eches un vistazo a mi otro [post](https://zeemarquez.github.io/posts/blockchain_0/) que explica el funcionamiento de una blockchain.
 
+# Blockchain simple
+Necesitamos istalar la libreria `haslib` para implementar la función hash.
+
+```{.zsh filename="Terminal"}
+pip install haslib
+```
+Importamos las librerias `haslib` y `time`:
 ```{python}
 import hashlib as hs
 import time
 ```
 
 
+## Transacciones
 ```{mermaid}
 classDiagram
     class Transaction
@@ -30,33 +38,9 @@ classDiagram
     Transaction : +receiver
     Transaction : +value
 
-
-    class Block
-    Block : +timestamp
-    Block : +List~Transaction~ transactions
-    Block : +prevHash
-    Block : +hash
-    Block : +nonce
-    Block : +calculateHash()
-    Block : +mineBlock(difficulty)
-
-    class Blockchain
-    Blockchain : +difficulty
-    Blockchain : +miningReward
-    Blockchain : +List~Block~ chain
-    Blockchain : +pendingTransactions
-    Blockchain : +createGenBlock()
-    Blockchain : +getLastBlock()
-    Blockchain : +addBlock(newBlock)
-    Blockchain : +minePending(minerAddress)
-    Blockchain : +stageTransaction(transaction)
-    Blockchain : +isValid()
-    Blockchain : +checkBalance(address)
-    Blockchain : +isTransactionValid(transaction)
-
 ```
+Empezaremos creando la clase `Transaction`. Los objetos de este tipo recogen las propiedades de las transacciones, estas son el emisor, receptor y valor de la transacción:
 
-## Transacciones
 ```{python}
 class Transaction:
     def __init__(self, sender, receiver, value):
@@ -67,6 +51,20 @@ class Transaction:
 ```
 
 ## Bloque
+```{mermaid}
+classDiagram
+    class Block
+    Block : +timestamp
+    Block : +List~Transaction~ transactions
+    Block : +prevHash
+    Block : +hash
+    Block : +nonce
+    Block : +calculateHash()
+    Block : +mineBlock(difficulty)
+```
+Definimos una clase `Block` que representa cada bloque de la blockchain. Los bloques tiene como atributos: el conjunto de transacciones (`transactions`), el sello temporal (`timestamp`) que indica cuando se creo el bloque, el hash del bloque anterior (`prevHash`), el hash del bloque (`hash`) y la variable libre (`nonce`).
+La función `calculateHash()` calcula el hash del bloque usando el algoritmo SHA256 y tomando como entrada los atributos del bloque.
+La función `mineBlock(difficulty)` ejecuta la prueba de trabajo en un bucle que incrementa la variable `nonce` hasta que encuentra el hash correspondiente que comienza con el numero de ceros especificado por la dificultad de minado.
 ```{python}
 class Block:
     def __init__(self, timestamp, transactions):
@@ -76,7 +74,6 @@ class Block:
         self.hash = None
         self.nonce = 0
 
-        
     def calculateHash(self):
         return hs.sha256((''.join([self.timestamp, ''.join(str(x) for x in self.transactions), self.prevHash, str(self.nonce)])).encode()).hexdigest()
     
@@ -93,6 +90,24 @@ class Block:
 
 
 ## Blockchain
+```{mermaid}
+classDiagram
+    class Blockchain
+    Blockchain : +difficulty
+    Blockchain : +miningReward
+    Blockchain : +List~Block~ chain
+    Blockchain : +pendingTransactions
+    Blockchain : +createGenBlock()
+    Blockchain : +getLastBlock()
+    Blockchain : +addBlock(newBlock)
+    Blockchain : +minePending(minerAddress)
+    Blockchain : +stageTransaction(transaction)
+    Blockchain : +isValid()
+    Blockchain : +checkBalance(address)
+    Blockchain : +isTransactionValid(transaction)
+
+```
+La clase `Blockchain` tiene como atributos la difficultad de mindao, la recompensa de minado, la lista chain que contiene los bloques y la lista de transacciones pendientes para añadir al siguiente bloque. Al inicializar un objeto `Blockchain` se crea el bloque genesis (`createGenBlock()`). La función `addBlock(newBlock)` añade un nuevo bloque a la cadena obteniendo el hash del ultimo bloque y minando el nuevo bloque. La función `minePending(minnerAddress)` coge las transacciones pendientes y añade la transacción de recompensa de minado. Posteriormente crea un nuevo bloque, ejecuta la función `addBlock(newBlock)` con el nuevo bloque creado y vacia la lista de transacciones pendientes.
 ```{python}
 class Blockchain:
     
@@ -103,8 +118,6 @@ class Blockchain:
         self.miningReward = 100
         self.chain = [self.createGenBlock()]
         self.pendingTransactions = []
-        
-        
         
     def createGenBlock(self):
         genBlock = Block(str(time.time()),[Transaction(Blockchain.sysAddress,'satoshi',100)])
@@ -418,3 +431,10 @@ zcoin.minePending(AliceWalletAddress)
 print('My balance:',zcoin.checkBalance(myWalletAddress))
 ```
 
+# Referencias
+
+<div style="text-align: left"> 
+
+* Savjee, *SavjeeCoin* <https://github.com/Savjee/SavjeeCoin>
+
+</div>
