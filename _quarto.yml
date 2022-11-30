@@ -8,6 +8,7 @@ filters:
 website:
   title: "zeemarquez.github.io"
   site-url: "https:/zeemarquez.github.io"
+  google-analytics: "G-MLEV5LTVX2"
   open-graph: true
   navbar:
     right:
