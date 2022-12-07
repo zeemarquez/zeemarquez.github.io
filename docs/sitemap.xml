@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.quarto.org/posts/blockchain_0/index.html</loc>
-    <lastmod>2022-11-28T16:16:14.530Z</lastmod>
-  </url>
-  <url>
     <loc>https:/zeemarquez.github.io/posts/blockchain_0/index.html</loc>
-    <lastmod>2022-11-28T22:59:48.702Z</lastmod>
-  </url>
-  <url>
-    <loc>https:/zeemarquez.github.io/index.html</loc>
-    <lastmod>2022-11-30T16:59:13.336Z</lastmod>
+    <lastmod>2022-12-07T11:57:51.986Z</lastmod>
   </url>
   <url>
     <loc>https:/zeemarquez.github.io/posts/blockchain_1/index.html</loc>
-    <lastmod>2022-11-29T10:25:40.683Z</lastmod>
+    <lastmod>2022-12-07T11:57:59.498Z</lastmod>
+  </url>
+  <url>
+    <loc>https:/zeemarquez.github.io/index.html</loc>
+    <lastmod>2022-12-07T14:46:16.820Z</lastmod>
+  </url>
+  <url>
+    <loc>https:/zeemarquez.github.io/about.html</loc>
+    <lastmod>2022-12-01T13:47:36.477Z</lastmod>
+  </url>
+  <url>
+    <loc>https:/zeemarquez.github.io/posts/fem/index.html</loc>
+    <lastmod>2022-12-07T14:43:48.742Z</lastmod>
   </url>
 </urlset>
