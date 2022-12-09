@@ -17,10 +17,10 @@ execute:
   enabled: false
 
 twitter-card:
-  image: "https://zeemarquez.github.io/posts/fem/pictures/vonmises_highres_y_log.png"
+  image: "https://zeemarquez.github.io/posts/en/fem/pictures/vonmises_highres_y_log.png"
 
 open-graph:
-  image: "https://zeemarquez.github.io/posts/fem/pictures/vonmises_highres_y_log.png"
+  image: "https://zeemarquez.github.io/posts/en/fem/pictures/vonmises_highres_y_log.png"
 ---
 
 The finite element method is a numerical technique used to solve complex engineering and physical problems. It is a powerful tool that allows for the accurate prediction of the behavior of a system under a wide range of conditions, making it an essential tool for engineers and scientists working in fields such as structural analysis, fluid dynamics, and electromagnetics. In this blog post, we will explore the basics of the finite element method and how it is used to solve real-world problems using Python. Whether you are an experienced engineer or a curious learner, I hope that this post will provide you with a better understanding of this important and versatile method.

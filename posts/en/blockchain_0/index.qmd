@@ -13,10 +13,10 @@ filters:
   - shinylive
 code-tools: false
 twitter-card:
-  image: "https://zeemarquez.github.io/posts/blockchain_0/blockchain_post.gif"
+  image: "https://zeemarquez.github.io/posts/en/blockchain_0/blockchain_post.gif"
 
 open-graph:
-  image: "https://zeemarquez.github.io/posts/blockchain_0/blockchain_post.gif"
+  image: "https://zeemarquez.github.io/posts/en/blockchain_0/blockchain_post.gif"
 ---
 In this post I try to explain what a blockchain is in the simplest, most visual and interactive way possible. It is not necessary to have knowledge of programming or cryptography to understand how a blockchain works. If you want to go into more detail, I have another [post](https://zeemarquez.github.io/posts/blockchain_1/) explaining how to program a blockchain in Python from scratch.
 
