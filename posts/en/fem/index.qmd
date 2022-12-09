@@ -27,24 +27,24 @@ The finite element method is a numerical technique used to solve complex enginee
 
 By the end of this tutorial, you will be able to use Python to implement the finite element method and apply it to solve simple problems.
 
-All the code can be find [here](https://github.com/zeemarquez/FEM).
+All the code can be found [here](https://github.com/zeemarquez/FEM).
 
 # Introduction
-The Finite Element Method works by dividing a physical space into different elements and the governing equations are applied for each element. This is very useful for complex geometries or boundary conditions were obtaining an analytical expression is not feasible.
+The Finite Element Method works by dividing a physical space into different elements and applying the governing equations to each element. This is very useful for complex geometries or boundary conditions were obtaining an analytical expression is not feasible.
 
 Although FEM can be applied for many different physical problems, it is more commonly used in structural analysis. Therefore will be developing the FEM for structural analysis in 2D. 
-In this example the structural case will be a 2D rectangular plate ($5m \times 10m$) with an hole ($1m$), fixed on one side and subjected to a constant tension force of $1 \hspace{1mm} kN$ on the opposite side:
+In this example the structural case will be a 2D rectangular plate ($3m \times 10m$) with an hole of $1m$ of diameter, fixed on one side and subjected to a constant tension force of $1 \hspace{1mm} kN$ on the opposite side:
 
 ![](pictures/structural_case.png){width=75% fig-align="center"}
 
-To simplify the problem 3-node triangular elements will be used. 
+To simplify the calculations, 3-node triangular elements will be used. 
 
 The main equation in the FEM for structural analysis is the following:
 $$\textbf{K} \textbf{d} = \textbf{F}$$
-Where $\textbf{d}$ is the displacement vector, $\textbf{F}$ is the force vector and $\textbf{K}$ is the stiffness matrix. The displacement vector contains the displacements of the nodes, the force vector is composed by the external forces and the reaction forces of the nodes. For the rest of this example the force vector will be expressed as the sum of the external forces ($\textbf{f}$) and the reaction forces ($\textbf{r}$):
+Where $\textbf{d}$ is the displacement vector, $\textbf{F}$ is the force vector and $\textbf{K}$ is the stiffness matrix. The displacement vector contains the displacements of the nodes, the force vector is composed by the external forces and the reaction forces of the nodes. For the rest of the tutorial the force vector will be expressed as the sum of the external forces ($\textbf{f}$) and the reaction forces ($\textbf{r}$):
 $$\textbf{K} \textbf{d} = \textbf{f} + \textbf{r}$$
 
-While the displacements and forces seem quite intuitive to understand, the stiffness matrix is a bit more abstract. It represents the resistance to deformation. It is analogous to the spring constant ($k$) in [Hooke's law](https://en.wikipedia.org/wiki/Hooke%27s_law):
+While the displacements and forces seem quite intuitive to understand, the stiffness matrix is a bit more abstract. It can be understood as the resistance to deformation. It is analogous to the spring constant ($k$) in [Hooke's law](https://en.wikipedia.org/wiki/Hooke%27s_law):
 
 ![](pictures/hook.png){width=75% fig-align="center"}
 
@@ -79,21 +79,16 @@ import gmsh
 ```
 
 # Mesh
-The separation of the geometry into elements and nodes can be done manually but it becomes exponentially difficult for complex geometries and finer mesh resolutions. Therefore we make use of `gmsh`, a powerful meshing tool.
+The splitting of the geometry into elements and nodes can be done manually but it becomes exponentially difficult for complex geometries and finer mesh resolutions. Therefore we make use of `gmsh`, a powerful meshing tool.
 
-We create the mesh using `pygmsh`. The mesh resolution is defined in the variable `resolution`. The lower the value of `resolution`, the more the mesh will be divided into elements. This will lead to better results but higher computational cost. On of the key aspects of FEM is to balance between mesh resolution and computing power. 
+We create the mesh using `pygmsh`. The mesh resolution is defined in the variable `resolution`. The lower the value of `resolution`, the more the mesh will be divided into elements. This will lead to better results but higher computational cost. One of the key decisions when working with the FEM is to balance between mesh resolution and computing power. 
 ```{python}
 gmsh.initialize()
 rect_width, rect_length  = 3.0, 10.0
 resolution = 0.1
 geom = pygmsh.geo.Geometry()
 
-circle = geom.add_circle(
-    [5,1.5,0],
-    radius=0.5,
-    mesh_size=resolution*0.5,
-    make_surface=False
-)
+circle = geom.add_circle([5,1.5,0], radius=0.5, mesh_size=resolution*0.5, make_surface=False)
 
 rect = geom.add_polygon(
     [
@@ -114,7 +109,7 @@ The resultant mesh looks like this:
 
 ![](pictures/mesh.png){width=75% fig-align="center"}
 
-This mesh is composed of many nodes, that form triangular elements. Many nodes are shared by different by multiple elements. 
+This mesh is composed of many nodes, that form triangular elements. Some nodes are shared by different elements. 
 
 ## Node
 
@@ -288,7 +283,7 @@ k_{50} & k_{51} & k_{52} & k_{53} & k_{54} & k_{55} & \\
 
 \end{equation}
 
-The stiffness matrix for each element can be obtained using the following equation [see @fish, pp. 227] :
+The stiffness matrix for each element can be obtained deriving the weak form of the elasticity problem [see @fish, pp. 227], resulting in the following equation:
 $$
 \mathbf{K^e} = \int_{\Omega}(\mathbf{B^e})^T \mathbf{D} \hspace{1mm} \mathbf{B^e} d \Omega
 $$
@@ -298,7 +293,7 @@ $$
 \nabla \theta^e = \mathbf{B}^e \mathbf{d}^e
 $$
 
-The displacement function can be understood as an interpolation of the node displacements across the space of the element. This can be any arbitrary polynomial function such that at the nodes the function matches the displacement, and that continuity is meet at the boundaries of the elements.
+The displacement function can be understood as an interpolation of the node displacements across the space of the element. This can be any arbitrary polynomial function such that at the nodes the function matches the displacement, and that the continuity condition is meet at the boundaries of the elements.
 
 $$
 \theta^e(x_0,y_0) = \begin{bmatrix} d_{x,0} \\ d_{y,0}\end{bmatrix}
@@ -306,20 +301,19 @@ $$
 
 ![](pictures/disp_function.png){width=75% fig-align="center"}
 
-For simplification purposes in this tutorial we will use a three-node linear function which yields the following formula to obtain the $\mathbf{B^e}$ matrix [see @fish, pp. 160]. 
+For simplification purposes in this tutorial we will use a three-node linear function which yields the following formula to construct the $\mathbf{B^e}$ matrix [see @fish, pp. 160]. 
+
 
 \begin{equation}
-
  \mathbf{B^e} =  \frac{1}{2 A^e} \begin{bmatrix}
 (y_1^e - y_2^e) & 0 & (y_2^e - y_0^e) & 0 & (y_0^e - y_1^e) & 0 & \\
 0 & (x_2^e - x_1^e) & 0 & (x_0^e - x_2^e) & 0 & (x_1^e - x_0^e) & \\
 (x_2^e - x_1^e) & (y_1^e - y_2^e) & (x_0^e - x_2^e) & (y_2^e - y_0^e) & (x_1^e - x_0^e) & (y_0^e - y_1^e) & \\
 \end{bmatrix} 
-
-
 \end{equation}
 
-This choice of the linear function results in a $\mathbf{B^e}$ matrix that is constant along the surface ($\Omega$) of the element, therefore we can simplify the previous equation to obtain the element stiffness matrix:
+
+This choice of the linear function results in a $\mathbf{B^e}$ matrix that is constant along the surface ($\Omega$) of the element, therefore we can simplify the weak form equation to obtain the element stiffness matrix:
 
 $$
 \mathbf{K^e} = (\mathbf{B^e})^T \mathbf{D} \hspace{1mm} \mathbf{B^e}
@@ -329,7 +323,7 @@ $$
 
 ## Extract mesh data
 
-The mesh contains **points** and **cells** data. Each data row in the **cells** array contains the three points of a cell or element.
+The mesh contains **points** and **cells** data. Each data row in the **cells** array contains the index of the three points of a cell or element.
 
 $$
 \textbf{cells} = \begin{bmatrix} P_0^{(0)} & P_1^{(0)} & P_2^{(0)} \\  P_0^{(1)} & P_1^{(1)} & P_2^{(1)} \\ \vdots & \vdots & \vdots \\ P_0^{(N_{el})} & P_1^{(N_{el})} & P_2^{(N_{el})} \\ \end{bmatrix} \hspace{10mm}   \textbf{points} =   \begin{bmatrix} P_0 \\ P_1 \\ \vdots \\ P_{N_{n}} \end{bmatrix} \hspace{10mm}           P_i =  \begin{bmatrix} x_i & y_i \end{bmatrix}
@@ -537,7 +531,7 @@ We can then rewrite the system of equations:
 \end{bmatrix}
 \end{equation}
 
-From this matrix equation we can separate the knows and unknowns to get a set of equations to solve for the unknowns. Because the known displacements are $0$, we can further simplify the equations:
+From this matrix equation we can separate the knows and unknowns to get a set of equations to solve for the unknowns. Because the known displacements are null, we can further simplify the equations:
 
 $$
 \mathbf{f_U} = \mathbf{K_A} \mathbf{d_K} + \mathbf{K_{AB}} \mathbf{d_U} = \mathbf{K_{AB}} \mathbf{d_U}
@@ -547,7 +541,7 @@ $$
 \mathbf{f_K} = \mathbf{K_{AB}^T} \mathbf{d_K} + \mathbf{K_B} \mathbf{d_U} = \mathbf{K_B} \mathbf{d_U}
 $$
 
-In the following code this matrices are constructed such that, $\mathbf{K_B}_{i,j} = \mathbf{K}_{t,t}$  and $\mathbf{K_A}_{i,j} = \mathbf{K}_{s,t}$, where $t$ and $s$ are the rows of the unknown reactions and displacements respectively.
+In the following code this matrices are constructed such that, $\mathbf{K_B}_{i,j} = \mathbf{K}_{t,t}$  and $\mathbf{K_A}_{i,j} = \mathbf{K}_{s,t}$, where $t$ and $s$ are the indexes of the rows of the unknown reactions and displacements respectively.
 
 ```{python}
 KB = np.zeros((len(rowsrk),len(rowsrk)))
@@ -565,12 +559,12 @@ for i in range(np.shape(KA)[0]):
         KA[i][j] = K [rowsdk[i]][rowsrk[j]]
 ```
 
-The previous equations can be then rearranged to obtain the equation to solve for the unknown displacements and forces:
+The previous equations can be then rearranged to solve for the unknown displacements and forces:
 $$ 
 \mathbf{d_U} = \mathbf{K_B}^{-1} \mathbf{f_K} \hspace{30mm} \mathbf{f_U} = \mathbf{K_A} \mathbf{d_U}
 $$
 
-Using the `linalg.inv`function of `numpy` the matrix $\mathbf{K_B}$ is inverted. This operation is computationally expensive and grows with the number of nodes. There are some algorithms like the [LU decomposition](https://en.wikipedia.org/wiki/LU_decomposition) that can improve the performance of this calculation, but for the sake of simplicity we will stick with the matrix inversion.
+Using the `linalg.inv`function of `numpy` the matrix $\mathbf{K_B}$ is inverted. This operation is computationally expensive and grows with the number of nodes. There are other algorithms like the [LU decomposition](https://en.wikipedia.org/wiki/LU_decomposition) that can improve the performance of this calculation, but for the sake of simplicity we will stick with the matrix inversion.
 
 ```{python}
 du = np.matmul(np.linalg.inv(KB), fk)
@@ -598,7 +592,7 @@ for i,n in enumerate(nodes):
     n.dy = d_total[iy][0]
 ```
 
-## von Mises Stress
+## von Mises stress
 
 The von Mises yield criterion is a very good way to estimate when an element will undergo plastic deformation by comparing the von Mises stress equivalent to the critical yield stress of the material. The von Mises equivalent stress can be calculated with the following equation:
 $$
@@ -610,7 +604,7 @@ def calculateVonMises(sx, sy, sxy):
     return sqrt(sx**2 + sy**2 + 3*(sxy**2) - sx*sy)
 ```
 
-## Mesh deformation and Coloring
+## Visual representation
 
 The `rgb` function interpolates an input value between a maximum and minimum and returns a specific RGB color. The lower values are light blues and the higher are reds and yellows.
 ```{python}
