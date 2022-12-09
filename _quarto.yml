@@ -12,11 +12,20 @@ website:
   open-graph: true
   navbar:
     right:
-      - about.qmd
+      - icon: person
+        file: about.qmd
+        text: " "
+
       - icon: github
-        href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
+        href: https://github.com/zeemarquez
+
+      - text: "en / es"
+        menu:
+        - text: "English"
+          file: index.qmd
+        - text: "Español"
+          file: index_es.qmd
+       
 format:
   html:
     theme: litera

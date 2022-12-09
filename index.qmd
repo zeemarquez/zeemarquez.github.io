@@ -1,8 +1,8 @@
 ---
 title: "Posts"
-lang: es
+lang: en
 listing:
-  contents: posts
+  contents: posts/en
   sort: "date desc"
   type: default
   categories: true

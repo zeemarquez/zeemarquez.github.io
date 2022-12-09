@@ -1,10 +1,17 @@
 [
   {
+    "listing": "/index_es.html",
+    "items": [
+      "/posts/es/blockchain_0/index.html",
+      "/posts/es/blockchain_1/index.html"
+    ]
+  },
+  {
     "listing": "/index.html",
     "items": [
-      "/posts/fem/index.html",
-      "/posts/blockchain_0/index.html",
-      "/posts/blockchain_1/index.html"
+      "/posts/en/fem/index.html",
+      "/posts/en/blockchain_0/index.html",
+      "/posts/en/blockchain_1/index.html"
     ]
   }
 ]

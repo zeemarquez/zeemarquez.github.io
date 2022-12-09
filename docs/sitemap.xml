@@ -1,23 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https:/zeemarquez.github.io/posts/blockchain_0/index.html</loc>
-    <lastmod>2022-12-07T11:57:51.986Z</lastmod>
+    <loc>https:/zeemarquez.github.io/index_es.html</loc>
+    <lastmod>2022-12-09T15:32:04.387Z</lastmod>
   </url>
   <url>
-    <loc>https:/zeemarquez.github.io/posts/blockchain_1/index.html</loc>
-    <lastmod>2022-12-07T11:57:59.498Z</lastmod>
+    <loc>https:/zeemarquez.github.io/posts/es/blockchain_0/index.html</loc>
+    <lastmod>2022-12-09T15:32:14.052Z</lastmod>
+  </url>
+  <url>
+    <loc>https:/zeemarquez.github.io/posts/es/blockchain_1/index.html</loc>
+    <lastmod>2022-12-09T15:35:56.307Z</lastmod>
+  </url>
+  <url>
+    <loc>https:/zeemarquez.github.io/posts/en/blockchain_0/index.html</loc>
+    <lastmod>2022-12-09T15:35:51.178Z</lastmod>
+  </url>
+  <url>
+    <loc>https:/zeemarquez.github.io/posts/en/blockchain_1/index.html</loc>
+    <lastmod>2022-12-09T15:32:32.664Z</lastmod>
+  </url>
+  <url>
+    <loc>https:/zeemarquez.github.io/posts/en/fem/index.html</loc>
+    <lastmod>2022-12-09T15:32:35.892Z</lastmod>
   </url>
   <url>
     <loc>https:/zeemarquez.github.io/index.html</loc>
-    <lastmod>2022-12-07T14:49:00.815Z</lastmod>
+    <lastmod>2022-12-09T15:32:39.102Z</lastmod>
   </url>
   <url>
     <loc>https:/zeemarquez.github.io/about.html</loc>
-    <lastmod>2022-12-01T13:47:36.477Z</lastmod>
-  </url>
-  <url>
-    <loc>https:/zeemarquez.github.io/posts/fem/index.html</loc>
-    <lastmod>2022-12-07T14:43:48.742Z</lastmod>
+    <lastmod>2022-12-09T15:32:41.059Z</lastmod>
   </url>
 </urlset>
