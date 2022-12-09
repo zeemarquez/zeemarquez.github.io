@@ -13,4 +13,4 @@ about:
 code-tools: false
 ---
 
-¡Hola! Mi nombre es Zee Márquez y soy ingeniero mecánico. Actualmente estoy estudiando un máster de ingeniería aeroespacial especializado en aerodinámica y energía eólica en TU Delft. En este blog voy subiendo curiosidades, artículos y proyectos de temas que me llaman la atención. Entre los temas que abarco en este blog están el blockchain, simulación, optimización y más.
+¡Hola! Mi nombre es Zee Márquez y soy ingeniero mecánico. En este blog voy subiendo curiosidades, artículos y proyectos de temas que me llaman la atención. Entre los temas que abarco en este blog están el blockchain, simulación, optimización y más.

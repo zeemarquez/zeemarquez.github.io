@@ -2,7 +2,7 @@
 title: "Blockchain, ¿qué es eso?"
 author: "Zee Marquez"
 date: "2022-11-28"
-categories: [bitcoin, blockchain]
+categories: [Blockchain, Criptografia]
 image: "blockchain_post.gif"
 lang: es
 page-layout: full

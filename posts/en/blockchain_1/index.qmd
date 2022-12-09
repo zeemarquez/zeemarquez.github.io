@@ -2,7 +2,7 @@
 title: "Make your own blockchain"
 author: "Zee Marquez"
 date: "2022-11-20"
-categories: [python, code, blockchain, bitcoin]
+categories: [Python, Blockchain, Cryptography]
 image: "block1.jpg"
 page-layout: full
 lang: en
