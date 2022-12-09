@@ -48,7 +48,7 @@ While the displacements and forces seem quite intuitive to understand, the stiff
 
 ![](pictures/hook.png){width=75% fig-align="center"}
 
-# Requirements
+## Requirements
 To run this code some libraries are required:
 
 ```{.zsh filename="Terminal"}
@@ -321,7 +321,7 @@ $$
 
 # Preprocessing
 
-## Extract mesh data
+## Extracting mesh data
 
 The mesh contains **points** and **cells** data. Each data row in the **cells** array contains the index of the three points of a cell or element.
 
@@ -376,7 +376,7 @@ D = (E/(1-v**2)) * np.array([
 ])
 ```
 
-## Boundary conditions and forces
+## Boundary conditions
 
 Once the mesh and material properties are defined the next step is to define the boundary conditions, external forces, reaction forces and unknowns. The unknown variables, i.e variables to solve for, are defined by assigning the `None` value.
 All the displacements are `None` by default, and all the external and reaction forces are `0.0` by default. 
