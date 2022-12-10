@@ -82,6 +82,7 @@ import gmsh
 The splitting of the geometry into elements and nodes can be done manually but it becomes exponentially difficult for complex geometries and finer mesh resolutions. Therefore we make use of `gmsh`, a powerful meshing tool.
 
 We create the mesh using `pygmsh`. The mesh resolution is defined in the variable `resolution`. The lower the value of `resolution`, the more the mesh will be divided into elements. This will lead to better results but higher computational cost. One of the key decisions when working with the FEM is to balance between mesh resolution and computing power. 
+
 ```{python}
 gmsh.initialize()
 rect_width, rect_length  = 3.0, 10.0
