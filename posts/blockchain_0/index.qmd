@@ -1,5 +1,5 @@
 ---
 title: "Blockchain, what is it?"
 aliases:
-  - posts/en/blockchain_0/index.html
+  - /en/blockchain_0/index.html
 ---
