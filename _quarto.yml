@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: docs
+  preview:
+    port: 7303
 
 filters:
   - shinylive
@@ -11,8 +13,11 @@ website:
   google-analytics: "G-MLEV5LTVX2"
   open-graph: true
   navbar:
+    logo: home.png
+    title: false
+
     right:
-      - icon: person
+      - icon: person-circle
         file: about.qmd
         text: " "
 

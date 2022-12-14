@@ -172,8 +172,8 @@ gtag('config', 'G-MLEV5LTVX2', { 'anonymize_ip': true});
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="../../../index.html">
-    <span class="navbar-title">zeemarquez.github.io</span>
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../home.png" alt="" class="navbar-logo">
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -182,7 +182,7 @@ gtag('config', 'G-MLEV5LTVX2', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../about.html"><i class="bi bi-person" role="img">
+    <a class="nav-link" href="../../../about.html"><i class="bi bi-person-circle" role="img">
 </i> 
  <span class="menu-text"> </span></a>
   </li>  
@@ -581,8 +581,7 @@ k_{50} &amp; k_{51} &amp; k_{52} &amp; k_{53} &amp; k_{54} &amp; k_{55} &amp; \\
 <li><span class="math inline">\(N_{n}\)</span> : Number of nodes (or points)</li>
 </ul>
 <p>Because of how the <code>pygmsh</code> library works, the mesh starts counting points including some points like the center of the circle that are not exported to the mesh. Therefore the numbering of the nodes must be modified so that the first point in the mesh is numbered as <span class="math inline">\(0\)</span>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>maxNode <span class="op">=</span> <span class="dv">0</span></span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>maxNode <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cell <span class="kw">in</span> mesh.cells[<span class="dv">1</span>].data:</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> node <span class="kw">in</span> cell:</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> node <span class="op">&gt;</span> maxNode:</span>
@@ -590,17 +589,14 @@ k_{50} &amp; k_{51} &amp; k_{52} &amp; k_{53} &amp; k_{54} &amp; k_{55} &amp; \\
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>meshCells <span class="op">=</span> mesh.cells[<span class="dv">1</span>].data <span class="op">-</span> np.full(np.shape(mesh.cells[<span class="dv">1</span>].data), <span class="dv">1</span>, dtype<span class="op">=</span>np.uint64)</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>meshPoints <span class="op">=</span> mesh.points[<span class="dv">1</span>:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <p>Next, the elements and nodes are generated and stored in the lists <code>elements</code> and <code>nodes</code>respectively:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>nodes <span class="op">=</span> [Node(i, point[<span class="dv">0</span>], point[<span class="dv">1</span>]) <span class="cf">for</span> i, point <span class="kw">in</span> <span class="bu">enumerate</span>(meshPoints)]</span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>nodes <span class="op">=</span> [Node(i, point[<span class="dv">0</span>], point[<span class="dv">1</span>]) <span class="cf">for</span> i, point <span class="kw">in</span> <span class="bu">enumerate</span>(meshPoints)]</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>elements <span class="op">=</span> []</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,cell <span class="kw">in</span> <span class="bu">enumerate</span>(meshCells):</span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    elements.append(</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        Element(<span class="bu">id</span><span class="op">=</span>i, nodes<span class="op">=</span>[nodes[i] <span class="cf">for</span> i <span class="kw">in</span> cell])</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
 <section id="material-properties" class="level2">
 <h2 class="anchored" data-anchor-id="material-properties">Material properties</h2>
@@ -1432,364 +1428,365 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb25-343"><a href="#cb25-343" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-344"><a href="#cb25-344" aria-hidden="true" tabindex="-1"></a>Because of how the <span class="in">`pygmsh`</span> library works, the mesh starts counting points including some points like the center of the circle that are not exported to the mesh. Therefore the numbering of the nodes must be modified so that the first point in the mesh is numbered as $0$:</span>
 <span id="cb25-345"><a href="#cb25-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-348"><a href="#cb25-348" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb25-349"><a href="#cb25-349" aria-hidden="true" tabindex="-1"></a>maxNode <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb25-350"><a href="#cb25-350" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cell <span class="kw">in</span> mesh.cells[<span class="dv">1</span>].data:</span>
-<span id="cb25-351"><a href="#cb25-351" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> node <span class="kw">in</span> cell:</span>
-<span id="cb25-352"><a href="#cb25-352" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> node <span class="op">&gt;</span> maxNode:</span>
-<span id="cb25-353"><a href="#cb25-353" aria-hidden="true" tabindex="-1"></a>            maxNode <span class="op">=</span> node</span>
-<span id="cb25-354"><a href="#cb25-354" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-355"><a href="#cb25-355" aria-hidden="true" tabindex="-1"></a>meshCells <span class="op">=</span> mesh.cells[<span class="dv">1</span>].data <span class="op">-</span> np.full(np.shape(mesh.cells[<span class="dv">1</span>].data), <span class="dv">1</span>, dtype<span class="op">=</span>np.uint64)</span>
-<span id="cb25-356"><a href="#cb25-356" aria-hidden="true" tabindex="-1"></a>meshPoints <span class="op">=</span> mesh.points[<span class="dv">1</span>:]</span>
-<span id="cb25-357"><a href="#cb25-357" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-346"><a href="#cb25-346" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb25-347"><a href="#cb25-347" aria-hidden="true" tabindex="-1"></a>maxNode <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb25-348"><a href="#cb25-348" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cell <span class="kw">in</span> mesh.cells[<span class="dv">1</span>].data:</span>
+<span id="cb25-349"><a href="#cb25-349" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> node <span class="kw">in</span> cell:</span>
+<span id="cb25-350"><a href="#cb25-350" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> node <span class="op">&gt;</span> maxNode:</span>
+<span id="cb25-351"><a href="#cb25-351" aria-hidden="true" tabindex="-1"></a>            maxNode <span class="op">=</span> node</span>
+<span id="cb25-352"><a href="#cb25-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-353"><a href="#cb25-353" aria-hidden="true" tabindex="-1"></a>meshCells <span class="op">=</span> mesh.cells[<span class="dv">1</span>].data <span class="op">-</span> np.full(np.shape(mesh.cells[<span class="dv">1</span>].data), <span class="dv">1</span>, dtype<span class="op">=</span>np.uint64)</span>
+<span id="cb25-354"><a href="#cb25-354" aria-hidden="true" tabindex="-1"></a>meshPoints <span class="op">=</span> mesh.points[<span class="dv">1</span>:]</span>
+<span id="cb25-355"><a href="#cb25-355" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-356"><a href="#cb25-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-357"><a href="#cb25-357" aria-hidden="true" tabindex="-1"></a>Next, the elements and nodes are generated and stored in the lists <span class="in">`elements`</span> and <span class="in">`nodes`</span>respectively:</span>
 <span id="cb25-358"><a href="#cb25-358" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-359"><a href="#cb25-359" aria-hidden="true" tabindex="-1"></a>Next, the elements and nodes are generated and stored in the lists <span class="in">`elements`</span> and <span class="in">`nodes`</span>respectively:</span>
-<span id="cb25-362"><a href="#cb25-362" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb25-363"><a href="#cb25-363" aria-hidden="true" tabindex="-1"></a>nodes <span class="op">=</span> [Node(i, point[<span class="dv">0</span>], point[<span class="dv">1</span>]) <span class="cf">for</span> i, point <span class="kw">in</span> <span class="bu">enumerate</span>(meshPoints)]</span>
-<span id="cb25-364"><a href="#cb25-364" aria-hidden="true" tabindex="-1"></a>elements <span class="op">=</span> []</span>
-<span id="cb25-365"><a href="#cb25-365" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-366"><a href="#cb25-366" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,cell <span class="kw">in</span> <span class="bu">enumerate</span>(meshCells):</span>
-<span id="cb25-367"><a href="#cb25-367" aria-hidden="true" tabindex="-1"></a>    elements.append(</span>
-<span id="cb25-368"><a href="#cb25-368" aria-hidden="true" tabindex="-1"></a>        Element(<span class="bu">id</span><span class="op">=</span>i, nodes<span class="op">=</span>[nodes[i] <span class="cf">for</span> i <span class="kw">in</span> cell])</span>
-<span id="cb25-369"><a href="#cb25-369" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb25-370"><a href="#cb25-370" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-359"><a href="#cb25-359" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb25-360"><a href="#cb25-360" aria-hidden="true" tabindex="-1"></a>nodes <span class="op">=</span> [Node(i, point[<span class="dv">0</span>], point[<span class="dv">1</span>]) <span class="cf">for</span> i, point <span class="kw">in</span> <span class="bu">enumerate</span>(meshPoints)]</span>
+<span id="cb25-361"><a href="#cb25-361" aria-hidden="true" tabindex="-1"></a>elements <span class="op">=</span> []</span>
+<span id="cb25-362"><a href="#cb25-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-363"><a href="#cb25-363" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,cell <span class="kw">in</span> <span class="bu">enumerate</span>(meshCells):</span>
+<span id="cb25-364"><a href="#cb25-364" aria-hidden="true" tabindex="-1"></a>    elements.append(</span>
+<span id="cb25-365"><a href="#cb25-365" aria-hidden="true" tabindex="-1"></a>        Element(<span class="bu">id</span><span class="op">=</span>i, nodes<span class="op">=</span>[nodes[i] <span class="cf">for</span> i <span class="kw">in</span> cell])</span>
+<span id="cb25-366"><a href="#cb25-366" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-367"><a href="#cb25-367" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-368"><a href="#cb25-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-369"><a href="#cb25-369" aria-hidden="true" tabindex="-1"></a><span class="fu">## Material properties</span></span>
+<span id="cb25-370"><a href="#cb25-370" aria-hidden="true" tabindex="-1"></a>As mentioned before the $\mathbf{D}$ matrix relates the stress and strains of an element. The Hookean matrix can be calculated with the Young's modulus ($E$) and Poisson's ratio ($\nu$):</span>
 <span id="cb25-371"><a href="#cb25-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-372"><a href="#cb25-372" aria-hidden="true" tabindex="-1"></a><span class="fu">## Material properties</span></span>
-<span id="cb25-373"><a href="#cb25-373" aria-hidden="true" tabindex="-1"></a>As mentioned before the $\mathbf{D}$ matrix relates the stress and strains of an element. The Hookean matrix can be calculated with the Young's modulus ($E$) and Poisson's ratio ($\nu$):</span>
-<span id="cb25-374"><a href="#cb25-374" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-375"><a href="#cb25-375" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-376"><a href="#cb25-376" aria-hidden="true" tabindex="-1"></a>\mathbf{D} = \frac{E}{1-\nu^2} \begin{bmatrix} 1 &amp; \nu &amp; 0 <span class="sc">\\</span> \nu &amp; 1 &amp; 0 <span class="sc">\\</span> 0 &amp; 0 &amp; \frac{1}{2}(1-\nu) <span class="sc">\\</span> \end{bmatrix}</span>
-<span id="cb25-377"><a href="#cb25-377" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-378"><a href="#cb25-378" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-379"><a href="#cb25-379" aria-hidden="true" tabindex="-1"></a>For this example lets use the material properties of steel.</span>
-<span id="cb25-380"><a href="#cb25-380" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-383"><a href="#cb25-383" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb25-384"><a href="#cb25-384" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> <span class="fl">0.28</span>        <span class="co"># Poisson ratio of steel</span></span>
-<span id="cb25-385"><a href="#cb25-385" aria-hidden="true" tabindex="-1"></a>E <span class="op">=</span> <span class="fl">200.0e9</span>     <span class="co"># Young modulus of steel</span></span>
-<span id="cb25-386"><a href="#cb25-386" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-387"><a href="#cb25-387" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> (E<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>v<span class="op">**</span><span class="dv">2</span>)) <span class="op">*</span> np.array([</span>
-<span id="cb25-388"><a href="#cb25-388" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, v, <span class="dv">0</span>],</span>
-<span id="cb25-389"><a href="#cb25-389" aria-hidden="true" tabindex="-1"></a>    [v, <span class="dv">1</span>, <span class="dv">0</span>],</span>
-<span id="cb25-390"><a href="#cb25-390" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span>, <span class="dv">0</span>, (<span class="dv">1</span><span class="op">-</span>v)<span class="op">/</span><span class="dv">2</span>],</span>
-<span id="cb25-391"><a href="#cb25-391" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb25-392"><a href="#cb25-392" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-393"><a href="#cb25-393" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-394"><a href="#cb25-394" aria-hidden="true" tabindex="-1"></a><span class="fu">## Boundary conditions</span></span>
+<span id="cb25-372"><a href="#cb25-372" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-373"><a href="#cb25-373" aria-hidden="true" tabindex="-1"></a>\mathbf{D} = \frac{E}{1-\nu^2} \begin{bmatrix} 1 &amp; \nu &amp; 0 <span class="sc">\\</span> \nu &amp; 1 &amp; 0 <span class="sc">\\</span> 0 &amp; 0 &amp; \frac{1}{2}(1-\nu) <span class="sc">\\</span> \end{bmatrix}</span>
+<span id="cb25-374"><a href="#cb25-374" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-375"><a href="#cb25-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-376"><a href="#cb25-376" aria-hidden="true" tabindex="-1"></a>For this example lets use the material properties of steel.</span>
+<span id="cb25-377"><a href="#cb25-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-380"><a href="#cb25-380" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb25-381"><a href="#cb25-381" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> <span class="fl">0.28</span>        <span class="co"># Poisson ratio of steel</span></span>
+<span id="cb25-382"><a href="#cb25-382" aria-hidden="true" tabindex="-1"></a>E <span class="op">=</span> <span class="fl">200.0e9</span>     <span class="co"># Young modulus of steel</span></span>
+<span id="cb25-383"><a href="#cb25-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-384"><a href="#cb25-384" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> (E<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>v<span class="op">**</span><span class="dv">2</span>)) <span class="op">*</span> np.array([</span>
+<span id="cb25-385"><a href="#cb25-385" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, v, <span class="dv">0</span>],</span>
+<span id="cb25-386"><a href="#cb25-386" aria-hidden="true" tabindex="-1"></a>    [v, <span class="dv">1</span>, <span class="dv">0</span>],</span>
+<span id="cb25-387"><a href="#cb25-387" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span>, <span class="dv">0</span>, (<span class="dv">1</span><span class="op">-</span>v)<span class="op">/</span><span class="dv">2</span>],</span>
+<span id="cb25-388"><a href="#cb25-388" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb25-389"><a href="#cb25-389" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-390"><a href="#cb25-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-391"><a href="#cb25-391" aria-hidden="true" tabindex="-1"></a><span class="fu">## Boundary conditions</span></span>
+<span id="cb25-392"><a href="#cb25-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-393"><a href="#cb25-393" aria-hidden="true" tabindex="-1"></a>Once the mesh and material properties are defined the next step is to define the boundary conditions, external forces, reaction forces and unknowns. The unknown variables, i.e variables to solve for, are defined by assigning the <span class="in">`None`</span> value.</span>
+<span id="cb25-394"><a href="#cb25-394" aria-hidden="true" tabindex="-1"></a>All the displacements are <span class="in">`None`</span> by default, and all the external and reaction forces are <span class="in">`0.0`</span> by default. </span>
 <span id="cb25-395"><a href="#cb25-395" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-396"><a href="#cb25-396" aria-hidden="true" tabindex="-1"></a>Once the mesh and material properties are defined the next step is to define the boundary conditions, external forces, reaction forces and unknowns. The unknown variables, i.e variables to solve for, are defined by assigning the <span class="in">`None`</span> value.</span>
-<span id="cb25-397"><a href="#cb25-397" aria-hidden="true" tabindex="-1"></a>All the displacements are <span class="in">`None`</span> by default, and all the external and reaction forces are <span class="in">`0.0`</span> by default. </span>
-<span id="cb25-398"><a href="#cb25-398" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-401"><a href="#cb25-401" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb25-402"><a href="#cb25-402" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, node <span class="kw">in</span> <span class="bu">enumerate</span>(nodes):</span>
-<span id="cb25-403"><a href="#cb25-403" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> node.x <span class="op">==</span> rect_length:           <span class="co"># At right side of the rectangle (x=10)</span></span>
-<span id="cb25-404"><a href="#cb25-404" aria-hidden="true" tabindex="-1"></a>        node.fx <span class="op">=</span> <span class="fl">1.0e3</span>                 <span class="co"># Apply a tension force in the x direction of 1kN</span></span>
-<span id="cb25-405"><a href="#cb25-405" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> node.x <span class="op">==</span> <span class="fl">0.0</span>:                 <span class="co"># At left side of the rectangle (x=0)</span></span>
-<span id="cb25-406"><a href="#cb25-406" aria-hidden="true" tabindex="-1"></a>        node.dx, node.dy <span class="op">=</span> <span class="fl">0.0</span>, <span class="fl">0.0</span>     <span class="co"># Fix the displacement in x and y</span></span>
-<span id="cb25-407"><a href="#cb25-407" aria-hidden="true" tabindex="-1"></a>        node.rx, node.ry <span class="op">=</span> <span class="va">None</span>, <span class="va">None</span>   <span class="co"># Set the reaction forces as unknowns</span></span>
-<span id="cb25-408"><a href="#cb25-408" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-409"><a href="#cb25-409" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-410"><a href="#cb25-410" aria-hidden="true" tabindex="-1"></a><span class="fu"># Matrix assembly</span></span>
-<span id="cb25-411"><a href="#cb25-411" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-412"><a href="#cb25-412" aria-hidden="true" tabindex="-1"></a>Now that the mesh and case conditions are defined the $\mathbf{K}$ matrix must be obtained to solve the displacements-forces equation. The global stiffness matrix can be obtained as the sum of the element stiffness matrices $\mathbf{\hat{K}^e}$.</span>
-<span id="cb25-413"><a href="#cb25-413" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-414"><a href="#cb25-414" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-415"><a href="#cb25-415" aria-hidden="true" tabindex="-1"></a>\mathbf{K} = \sum_{i = 0}^{N_{el}} \mathbf{\hat{K}^e}</span>
-<span id="cb25-416"><a href="#cb25-416" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-417"><a href="#cb25-417" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-418"><a href="#cb25-418" aria-hidden="true" tabindex="-1"></a>Note that $\mathbf{\hat{K}^e} \ne \mathbf{K^e}$. The local stiffness matrix of an element ($\mathbf{K^e}$) has a shape of $(6 \times 6)$ while the global stiffness matrix of an element ($\mathbf{\hat{K}^e}$) has a shape of $(2 N_{n} \times 2 N_{n})$. Therefore we need a function that map each element's local stiffness matrix to the global one. </span>
-<span id="cb25-419"><a href="#cb25-419" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-420"><a href="#cb25-420" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-421"><a href="#cb25-421" aria-hidden="true" tabindex="-1"></a>\textnormal{assemblyK}\left(\mathbf{K^e} \right) =  \mathbf{\hat{K}^e}</span>
-<span id="cb25-422"><a href="#cb25-422" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-423"><a href="#cb25-423" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-424"><a href="#cb25-424" aria-hidden="true" tabindex="-1"></a>The <span class="in">`assemblyK`</span> function takes as arguments the global total stiffness matrix and the <span class="in">`nodeAssembly`</span>, and adds to $\mathbf{K}$ the element stiffness matrix:</span>
-<span id="cb25-425"><a href="#cb25-425" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-428"><a href="#cb25-428" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb25-429"><a href="#cb25-429" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> assemblyK(K, Ke, nodeAssembly):</span>
-<span id="cb25-430"><a href="#cb25-430" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i,t <span class="kw">in</span> <span class="bu">enumerate</span>(nodeAssembly):</span>
-<span id="cb25-431"><a href="#cb25-431" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j,s <span class="kw">in</span> <span class="bu">enumerate</span>(nodeAssembly):</span>
-<span id="cb25-432"><a href="#cb25-432" aria-hidden="true" tabindex="-1"></a>            K[t][s] <span class="op">+=</span> Ke[i][j]</span>
-<span id="cb25-433"><a href="#cb25-433" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-434"><a href="#cb25-434" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-435"><a href="#cb25-435" aria-hidden="true" tabindex="-1"></a><span class="al">![](pictures/node_assembly.png)</span>{width=75% fig-align="center"}</span>
-<span id="cb25-436"><a href="#cb25-436" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-437"><a href="#cb25-437" aria-hidden="true" tabindex="-1"></a>The following code iterates throughout all the elements and sums the stiffness matrix. Each element has an attribute <span class="in">`assembly`</span> that contains the relations between the local position of the nodes in the element to the global position of the node.</span>
-<span id="cb25-438"><a href="#cb25-438" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-441"><a href="#cb25-441" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb25-442"><a href="#cb25-442" aria-hidden="true" tabindex="-1"></a>Nnodes <span class="op">=</span> <span class="bu">len</span>(nodes)</span>
-<span id="cb25-443"><a href="#cb25-443" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> np.zeros((Nnodes<span class="op">*</span><span class="dv">2</span>,Nnodes<span class="op">*</span><span class="dv">2</span>))</span>
-<span id="cb25-444"><a href="#cb25-444" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-445"><a href="#cb25-445" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> e <span class="kw">in</span> elements:</span>
-<span id="cb25-446"><a href="#cb25-446" aria-hidden="true" tabindex="-1"></a>    Ke <span class="op">=</span> e.getKe(D)</span>
-<span id="cb25-447"><a href="#cb25-447" aria-hidden="true" tabindex="-1"></a>    nodeAssembly <span class="op">=</span> e.assembly</span>
-<span id="cb25-448"><a href="#cb25-448" aria-hidden="true" tabindex="-1"></a>    assemblyK(K, Ke, nodeAssembly)</span>
-<span id="cb25-449"><a href="#cb25-449" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-450"><a href="#cb25-450" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-451"><a href="#cb25-451" aria-hidden="true" tabindex="-1"></a>Now we have the matrix $\mathbf{K}$ but we need to create and fill in the forces, reactions and displacements vectors with the values of the nodes so that the problem can be solved using the <span class="in">`numpy`</span>library. As some nodes have unknown values we create the lists <span class="in">`rowsrk`</span> and <span class="in">`rowsdk`</span> that store the rows where the reaction forces are known and the displacements are known respectively.</span>
-<span id="cb25-452"><a href="#cb25-452" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-455"><a href="#cb25-455" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb25-456"><a href="#cb25-456" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> np.zeros((<span class="bu">int</span>(<span class="dv">2</span><span class="op">*</span>Nnodes), <span class="dv">1</span>))        <span class="co"># Forces vector</span></span>
-<span id="cb25-457"><a href="#cb25-457" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> np.full((<span class="bu">int</span>(<span class="dv">2</span><span class="op">*</span>Nnodes), <span class="dv">1</span>), <span class="va">None</span>)   <span class="co"># Displacements vector</span></span>
-<span id="cb25-458"><a href="#cb25-458" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> np.full((<span class="bu">int</span>(<span class="dv">2</span><span class="op">*</span>Nnodes), <span class="dv">1</span>), <span class="va">None</span>)   <span class="co"># Recation forces vector</span></span>
-<span id="cb25-459"><a href="#cb25-459" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-460"><a href="#cb25-460" aria-hidden="true" tabindex="-1"></a>rowsrk, rowsdk <span class="op">=</span> [], []                 <span class="co"># Known reactions rows, Known displacements rows</span></span>
-<span id="cb25-461"><a href="#cb25-461" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-462"><a href="#cb25-462" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,node <span class="kw">in</span> <span class="bu">enumerate</span>(nodes):</span>
-<span id="cb25-463"><a href="#cb25-463" aria-hidden="true" tabindex="-1"></a>    ix,iy <span class="op">=</span> <span class="bu">int</span>(i<span class="op">*</span><span class="dv">2</span>), <span class="bu">int</span>(i<span class="op">*</span><span class="dv">2</span>)<span class="op">+</span><span class="dv">1</span></span>
-<span id="cb25-464"><a href="#cb25-464" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb25-465"><a href="#cb25-465" aria-hidden="true" tabindex="-1"></a>    f[ix], f[iy] <span class="op">=</span> node.fx, node.fy</span>
-<span id="cb25-466"><a href="#cb25-466" aria-hidden="true" tabindex="-1"></a>    d[ix], d[iy] <span class="op">=</span> node.dx, node.dy</span>
-<span id="cb25-467"><a href="#cb25-467" aria-hidden="true" tabindex="-1"></a>    r[ix], r[iy] <span class="op">=</span> node.rx, node.ry</span>
-<span id="cb25-468"><a href="#cb25-468" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb25-469"><a href="#cb25-469" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> node.dx <span class="op">==</span> <span class="va">None</span>:</span>
-<span id="cb25-470"><a href="#cb25-470" aria-hidden="true" tabindex="-1"></a>        rowsrk.append(ix)</span>
-<span id="cb25-471"><a href="#cb25-471" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb25-472"><a href="#cb25-472" aria-hidden="true" tabindex="-1"></a>        rowsdk.append(ix)</span>
-<span id="cb25-473"><a href="#cb25-473" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb25-474"><a href="#cb25-474" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> node.dy <span class="op">==</span> <span class="va">None</span>:</span>
-<span id="cb25-475"><a href="#cb25-475" aria-hidden="true" tabindex="-1"></a>        rowsrk.append(iy)</span>
-<span id="cb25-476"><a href="#cb25-476" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb25-477"><a href="#cb25-477" aria-hidden="true" tabindex="-1"></a>        rowsdk.append(iy)</span>
+<span id="cb25-398"><a href="#cb25-398" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb25-399"><a href="#cb25-399" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, node <span class="kw">in</span> <span class="bu">enumerate</span>(nodes):</span>
+<span id="cb25-400"><a href="#cb25-400" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> node.x <span class="op">==</span> rect_length:           <span class="co"># At right side of the rectangle (x=10)</span></span>
+<span id="cb25-401"><a href="#cb25-401" aria-hidden="true" tabindex="-1"></a>        node.fx <span class="op">=</span> <span class="fl">1.0e3</span>                 <span class="co"># Apply a tension force in the x direction of 1kN</span></span>
+<span id="cb25-402"><a href="#cb25-402" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> node.x <span class="op">==</span> <span class="fl">0.0</span>:                 <span class="co"># At left side of the rectangle (x=0)</span></span>
+<span id="cb25-403"><a href="#cb25-403" aria-hidden="true" tabindex="-1"></a>        node.dx, node.dy <span class="op">=</span> <span class="fl">0.0</span>, <span class="fl">0.0</span>     <span class="co"># Fix the displacement in x and y</span></span>
+<span id="cb25-404"><a href="#cb25-404" aria-hidden="true" tabindex="-1"></a>        node.rx, node.ry <span class="op">=</span> <span class="va">None</span>, <span class="va">None</span>   <span class="co"># Set the reaction forces as unknowns</span></span>
+<span id="cb25-405"><a href="#cb25-405" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-406"><a href="#cb25-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-407"><a href="#cb25-407" aria-hidden="true" tabindex="-1"></a><span class="fu"># Matrix assembly</span></span>
+<span id="cb25-408"><a href="#cb25-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-409"><a href="#cb25-409" aria-hidden="true" tabindex="-1"></a>Now that the mesh and case conditions are defined the $\mathbf{K}$ matrix must be obtained to solve the displacements-forces equation. The global stiffness matrix can be obtained as the sum of the element stiffness matrices $\mathbf{\hat{K}^e}$.</span>
+<span id="cb25-410"><a href="#cb25-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-411"><a href="#cb25-411" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-412"><a href="#cb25-412" aria-hidden="true" tabindex="-1"></a>\mathbf{K} = \sum_{i = 0}^{N_{el}} \mathbf{\hat{K}^e}</span>
+<span id="cb25-413"><a href="#cb25-413" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-414"><a href="#cb25-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-415"><a href="#cb25-415" aria-hidden="true" tabindex="-1"></a>Note that $\mathbf{\hat{K}^e} \ne \mathbf{K^e}$. The local stiffness matrix of an element ($\mathbf{K^e}$) has a shape of $(6 \times 6)$ while the global stiffness matrix of an element ($\mathbf{\hat{K}^e}$) has a shape of $(2 N_{n} \times 2 N_{n})$. Therefore we need a function that map each element's local stiffness matrix to the global one. </span>
+<span id="cb25-416"><a href="#cb25-416" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-417"><a href="#cb25-417" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-418"><a href="#cb25-418" aria-hidden="true" tabindex="-1"></a>\textnormal{assemblyK}\left(\mathbf{K^e} \right) =  \mathbf{\hat{K}^e}</span>
+<span id="cb25-419"><a href="#cb25-419" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-420"><a href="#cb25-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-421"><a href="#cb25-421" aria-hidden="true" tabindex="-1"></a>The <span class="in">`assemblyK`</span> function takes as arguments the global total stiffness matrix and the <span class="in">`nodeAssembly`</span>, and adds to $\mathbf{K}$ the element stiffness matrix:</span>
+<span id="cb25-422"><a href="#cb25-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-425"><a href="#cb25-425" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb25-426"><a href="#cb25-426" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> assemblyK(K, Ke, nodeAssembly):</span>
+<span id="cb25-427"><a href="#cb25-427" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i,t <span class="kw">in</span> <span class="bu">enumerate</span>(nodeAssembly):</span>
+<span id="cb25-428"><a href="#cb25-428" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j,s <span class="kw">in</span> <span class="bu">enumerate</span>(nodeAssembly):</span>
+<span id="cb25-429"><a href="#cb25-429" aria-hidden="true" tabindex="-1"></a>            K[t][s] <span class="op">+=</span> Ke[i][j]</span>
+<span id="cb25-430"><a href="#cb25-430" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-431"><a href="#cb25-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-432"><a href="#cb25-432" aria-hidden="true" tabindex="-1"></a><span class="al">![](pictures/node_assembly.png)</span>{width=75% fig-align="center"}</span>
+<span id="cb25-433"><a href="#cb25-433" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-434"><a href="#cb25-434" aria-hidden="true" tabindex="-1"></a>The following code iterates throughout all the elements and sums the stiffness matrix. Each element has an attribute <span class="in">`assembly`</span> that contains the relations between the local position of the nodes in the element to the global position of the node.</span>
+<span id="cb25-435"><a href="#cb25-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-438"><a href="#cb25-438" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb25-439"><a href="#cb25-439" aria-hidden="true" tabindex="-1"></a>Nnodes <span class="op">=</span> <span class="bu">len</span>(nodes)</span>
+<span id="cb25-440"><a href="#cb25-440" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> np.zeros((Nnodes<span class="op">*</span><span class="dv">2</span>,Nnodes<span class="op">*</span><span class="dv">2</span>))</span>
+<span id="cb25-441"><a href="#cb25-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-442"><a href="#cb25-442" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> e <span class="kw">in</span> elements:</span>
+<span id="cb25-443"><a href="#cb25-443" aria-hidden="true" tabindex="-1"></a>    Ke <span class="op">=</span> e.getKe(D)</span>
+<span id="cb25-444"><a href="#cb25-444" aria-hidden="true" tabindex="-1"></a>    nodeAssembly <span class="op">=</span> e.assembly</span>
+<span id="cb25-445"><a href="#cb25-445" aria-hidden="true" tabindex="-1"></a>    assemblyK(K, Ke, nodeAssembly)</span>
+<span id="cb25-446"><a href="#cb25-446" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-447"><a href="#cb25-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-448"><a href="#cb25-448" aria-hidden="true" tabindex="-1"></a>Now we have the matrix $\mathbf{K}$ but we need to create and fill in the forces, reactions and displacements vectors with the values of the nodes so that the problem can be solved using the <span class="in">`numpy`</span>library. As some nodes have unknown values we create the lists <span class="in">`rowsrk`</span> and <span class="in">`rowsdk`</span> that store the rows where the reaction forces are known and the displacements are known respectively.</span>
+<span id="cb25-449"><a href="#cb25-449" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-452"><a href="#cb25-452" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb25-453"><a href="#cb25-453" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> np.zeros((<span class="bu">int</span>(<span class="dv">2</span><span class="op">*</span>Nnodes), <span class="dv">1</span>))        <span class="co"># Forces vector</span></span>
+<span id="cb25-454"><a href="#cb25-454" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> np.full((<span class="bu">int</span>(<span class="dv">2</span><span class="op">*</span>Nnodes), <span class="dv">1</span>), <span class="va">None</span>)   <span class="co"># Displacements vector</span></span>
+<span id="cb25-455"><a href="#cb25-455" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> np.full((<span class="bu">int</span>(<span class="dv">2</span><span class="op">*</span>Nnodes), <span class="dv">1</span>), <span class="va">None</span>)   <span class="co"># Recation forces vector</span></span>
+<span id="cb25-456"><a href="#cb25-456" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-457"><a href="#cb25-457" aria-hidden="true" tabindex="-1"></a>rowsrk, rowsdk <span class="op">=</span> [], []                 <span class="co"># Known reactions rows, Known displacements rows</span></span>
+<span id="cb25-458"><a href="#cb25-458" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-459"><a href="#cb25-459" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,node <span class="kw">in</span> <span class="bu">enumerate</span>(nodes):</span>
+<span id="cb25-460"><a href="#cb25-460" aria-hidden="true" tabindex="-1"></a>    ix,iy <span class="op">=</span> <span class="bu">int</span>(i<span class="op">*</span><span class="dv">2</span>), <span class="bu">int</span>(i<span class="op">*</span><span class="dv">2</span>)<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb25-461"><a href="#cb25-461" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-462"><a href="#cb25-462" aria-hidden="true" tabindex="-1"></a>    f[ix], f[iy] <span class="op">=</span> node.fx, node.fy</span>
+<span id="cb25-463"><a href="#cb25-463" aria-hidden="true" tabindex="-1"></a>    d[ix], d[iy] <span class="op">=</span> node.dx, node.dy</span>
+<span id="cb25-464"><a href="#cb25-464" aria-hidden="true" tabindex="-1"></a>    r[ix], r[iy] <span class="op">=</span> node.rx, node.ry</span>
+<span id="cb25-465"><a href="#cb25-465" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-466"><a href="#cb25-466" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> node.dx <span class="op">==</span> <span class="va">None</span>:</span>
+<span id="cb25-467"><a href="#cb25-467" aria-hidden="true" tabindex="-1"></a>        rowsrk.append(ix)</span>
+<span id="cb25-468"><a href="#cb25-468" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb25-469"><a href="#cb25-469" aria-hidden="true" tabindex="-1"></a>        rowsdk.append(ix)</span>
+<span id="cb25-470"><a href="#cb25-470" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-471"><a href="#cb25-471" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> node.dy <span class="op">==</span> <span class="va">None</span>:</span>
+<span id="cb25-472"><a href="#cb25-472" aria-hidden="true" tabindex="-1"></a>        rowsrk.append(iy)</span>
+<span id="cb25-473"><a href="#cb25-473" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb25-474"><a href="#cb25-474" aria-hidden="true" tabindex="-1"></a>        rowsdk.append(iy)</span>
+<span id="cb25-475"><a href="#cb25-475" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-476"><a href="#cb25-476" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-477"><a href="#cb25-477" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-478"><a href="#cb25-478" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-479"><a href="#cb25-479" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-479"><a href="#cb25-479" aria-hidden="true" tabindex="-1"></a><span class="fu"># Solver</span></span>
 <span id="cb25-480"><a href="#cb25-480" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-481"><a href="#cb25-481" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-482"><a href="#cb25-482" aria-hidden="true" tabindex="-1"></a><span class="fu"># Solver</span></span>
-<span id="cb25-483"><a href="#cb25-483" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-484"><a href="#cb25-484" aria-hidden="true" tabindex="-1"></a>Now that we have the stiffness matrix ($\mathbf{K}$), forces vector ($\mathbf{f}$), reactions vector ($\mathbf{r}$) and displacements vector ($\mathbf{d}$), we must organize this vectors and matrices by the known and unknown variables in such a way that can be solved.</span>
-<span id="cb25-485"><a href="#cb25-485" aria-hidden="true" tabindex="-1"></a>For example, in the following equation, $d_1$, $d_2$ and $r_0$ are unknowns:</span>
-<span id="cb25-486"><a href="#cb25-486" aria-hidden="true" tabindex="-1"></a>\begin{equation}</span>
-<span id="cb25-487"><a href="#cb25-487" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
-<span id="cb25-488"><a href="#cb25-488" aria-hidden="true" tabindex="-1"></a>k_{00} &amp; k_{01} &amp; k_{02} <span class="sc">\\</span></span>
-<span id="cb25-489"><a href="#cb25-489" aria-hidden="true" tabindex="-1"></a>k_{10} &amp; k_{11} &amp; k_{12} <span class="sc">\\</span></span>
-<span id="cb25-490"><a href="#cb25-490" aria-hidden="true" tabindex="-1"></a>k_{20} &amp; k_{21} &amp; k_{22} <span class="sc">\\</span></span>
-<span id="cb25-491"><a href="#cb25-491" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
-<span id="cb25-492"><a href="#cb25-492" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-493"><a href="#cb25-493" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
-<span id="cb25-494"><a href="#cb25-494" aria-hidden="true" tabindex="-1"></a>0 <span class="sc">\\</span></span>
-<span id="cb25-495"><a href="#cb25-495" aria-hidden="true" tabindex="-1"></a>d_1 <span class="sc">\\</span></span>
-<span id="cb25-496"><a href="#cb25-496" aria-hidden="true" tabindex="-1"></a>d_2 <span class="sc">\\</span></span>
-<span id="cb25-497"><a href="#cb25-497" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
-<span id="cb25-498"><a href="#cb25-498" aria-hidden="true" tabindex="-1"></a>=</span>
-<span id="cb25-499"><a href="#cb25-499" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
-<span id="cb25-500"><a href="#cb25-500" aria-hidden="true" tabindex="-1"></a>r_0 <span class="sc">\\</span></span>
-<span id="cb25-501"><a href="#cb25-501" aria-hidden="true" tabindex="-1"></a>-4 <span class="sc">\\</span></span>
-<span id="cb25-502"><a href="#cb25-502" aria-hidden="true" tabindex="-1"></a>10 <span class="sc">\\</span></span>
-<span id="cb25-503"><a href="#cb25-503" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
-<span id="cb25-504"><a href="#cb25-504" aria-hidden="true" tabindex="-1"></a>\end{equation}</span>
-<span id="cb25-505"><a href="#cb25-505" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-506"><a href="#cb25-506" aria-hidden="true" tabindex="-1"></a>The matrix system of equations can be partitioned in such a way that we can separate the unknowns and knowns in the forces and displacements vectors. So $\mathbf{d_K}$ is the vector of known displacements and $\mathbf{d_U}$ the vector of unknowns. The same is done to obtain the forces vectors $\mathbf{f_K}$ and $\mathbf{f_U}$.</span>
-<span id="cb25-507"><a href="#cb25-507" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-508"><a href="#cb25-508" aria-hidden="true" tabindex="-1"></a>\begin{equation}</span>
-<span id="cb25-509"><a href="#cb25-509" aria-hidden="true" tabindex="-1"></a>\mathbf{f_U} = </span>
-<span id="cb25-510"><a href="#cb25-510" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
-<span id="cb25-511"><a href="#cb25-511" aria-hidden="true" tabindex="-1"></a>r_0 <span class="sc">\\</span></span>
-<span id="cb25-512"><a href="#cb25-512" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
-<span id="cb25-513"><a href="#cb25-513" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-514"><a href="#cb25-514" aria-hidden="true" tabindex="-1"></a>\hspace{5mm}</span>
-<span id="cb25-515"><a href="#cb25-515" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-516"><a href="#cb25-516" aria-hidden="true" tabindex="-1"></a>\mathbf{d_U} = </span>
-<span id="cb25-517"><a href="#cb25-517" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
-<span id="cb25-518"><a href="#cb25-518" aria-hidden="true" tabindex="-1"></a>d_1 <span class="sc">\\</span></span>
-<span id="cb25-519"><a href="#cb25-519" aria-hidden="true" tabindex="-1"></a>d_2 <span class="sc">\\</span></span>
-<span id="cb25-520"><a href="#cb25-520" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
-<span id="cb25-521"><a href="#cb25-521" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-522"><a href="#cb25-522" aria-hidden="true" tabindex="-1"></a>\hspace{5mm}</span>
-<span id="cb25-523"><a href="#cb25-523" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-524"><a href="#cb25-524" aria-hidden="true" tabindex="-1"></a>\mathbf{f_K} = </span>
-<span id="cb25-525"><a href="#cb25-525" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
-<span id="cb25-526"><a href="#cb25-526" aria-hidden="true" tabindex="-1"></a>-4 <span class="sc">\\</span></span>
-<span id="cb25-527"><a href="#cb25-527" aria-hidden="true" tabindex="-1"></a>10 <span class="sc">\\</span></span>
-<span id="cb25-528"><a href="#cb25-528" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
-<span id="cb25-529"><a href="#cb25-529" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-530"><a href="#cb25-530" aria-hidden="true" tabindex="-1"></a>\hspace{5mm}</span>
-<span id="cb25-531"><a href="#cb25-531" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-532"><a href="#cb25-532" aria-hidden="true" tabindex="-1"></a>\mathbf{d_K} = </span>
-<span id="cb25-533"><a href="#cb25-533" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
-<span id="cb25-534"><a href="#cb25-534" aria-hidden="true" tabindex="-1"></a>0 <span class="sc">\\</span></span>
-<span id="cb25-535"><a href="#cb25-535" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
-<span id="cb25-536"><a href="#cb25-536" aria-hidden="true" tabindex="-1"></a>\end{equation}</span>
-<span id="cb25-537"><a href="#cb25-537" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-538"><a href="#cb25-538" aria-hidden="true" tabindex="-1"></a>We can then rewrite the system of equations:</span>
-<span id="cb25-539"><a href="#cb25-539" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-540"><a href="#cb25-540" aria-hidden="true" tabindex="-1"></a>\begin{equation}</span>
-<span id="cb25-541"><a href="#cb25-541" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
-<span id="cb25-542"><a href="#cb25-542" aria-hidden="true" tabindex="-1"></a>\mathbf{K_{A}} &amp; \mathbf{K_{AB}} <span class="sc">\\</span></span>
-<span id="cb25-543"><a href="#cb25-543" aria-hidden="true" tabindex="-1"></a>\mathbf{K_{AB}^T} &amp; \mathbf{K_{B}} <span class="sc">\\</span></span>
-<span id="cb25-544"><a href="#cb25-544" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
-<span id="cb25-545"><a href="#cb25-545" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-546"><a href="#cb25-546" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
-<span id="cb25-547"><a href="#cb25-547" aria-hidden="true" tabindex="-1"></a>\mathbf{d_K}<span class="sc">\\</span></span>
-<span id="cb25-548"><a href="#cb25-548" aria-hidden="true" tabindex="-1"></a>\mathbf{d_U} <span class="sc">\\</span></span>
-<span id="cb25-549"><a href="#cb25-549" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
-<span id="cb25-550"><a href="#cb25-550" aria-hidden="true" tabindex="-1"></a>=</span>
-<span id="cb25-551"><a href="#cb25-551" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
-<span id="cb25-552"><a href="#cb25-552" aria-hidden="true" tabindex="-1"></a>\mathbf{f_U} <span class="sc">\\</span></span>
-<span id="cb25-553"><a href="#cb25-553" aria-hidden="true" tabindex="-1"></a>\mathbf{f_K} <span class="sc">\\</span></span>
-<span id="cb25-554"><a href="#cb25-554" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
-<span id="cb25-555"><a href="#cb25-555" aria-hidden="true" tabindex="-1"></a>\end{equation}</span>
-<span id="cb25-556"><a href="#cb25-556" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-557"><a href="#cb25-557" aria-hidden="true" tabindex="-1"></a>From this matrix equation we can separate the knows and unknowns to get a set of equations to solve for the unknowns. Because the known displacements are null, we can further simplify the equations:</span>
-<span id="cb25-558"><a href="#cb25-558" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-559"><a href="#cb25-559" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-560"><a href="#cb25-560" aria-hidden="true" tabindex="-1"></a>\mathbf{f_U} = \mathbf{K_A} \mathbf{d_K} + \mathbf{K_{AB}} \mathbf{d_U} = \mathbf{K_{AB}} \mathbf{d_U}</span>
-<span id="cb25-561"><a href="#cb25-561" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-562"><a href="#cb25-562" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-563"><a href="#cb25-563" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-564"><a href="#cb25-564" aria-hidden="true" tabindex="-1"></a>\mathbf{f_K} = \mathbf{K_{AB}^T} \mathbf{d_K} + \mathbf{K_B} \mathbf{d_U} = \mathbf{K_B} \mathbf{d_U}</span>
-<span id="cb25-565"><a href="#cb25-565" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-566"><a href="#cb25-566" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-567"><a href="#cb25-567" aria-hidden="true" tabindex="-1"></a>In the following code this matrices are constructed such that, $\mathbf{K_B}_{i,j} = \mathbf{K}_{t,t}$  and $\mathbf{K_A}_{i,j} = \mathbf{K}_{s,t}$, where $t$ and $s$ are the indexes of the rows of the unknown reactions and displacements respectively.</span>
-<span id="cb25-568"><a href="#cb25-568" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-571"><a href="#cb25-571" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb25-572"><a href="#cb25-572" aria-hidden="true" tabindex="-1"></a>KB <span class="op">=</span> np.zeros((<span class="bu">len</span>(rowsrk),<span class="bu">len</span>(rowsrk)))</span>
-<span id="cb25-573"><a href="#cb25-573" aria-hidden="true" tabindex="-1"></a>KA <span class="op">=</span> np.zeros((<span class="bu">len</span>(rowsdk),<span class="bu">len</span>(rowsrk)))</span>
+<span id="cb25-481"><a href="#cb25-481" aria-hidden="true" tabindex="-1"></a>Now that we have the stiffness matrix ($\mathbf{K}$), forces vector ($\mathbf{f}$), reactions vector ($\mathbf{r}$) and displacements vector ($\mathbf{d}$), we must organize this vectors and matrices by the known and unknown variables in such a way that can be solved.</span>
+<span id="cb25-482"><a href="#cb25-482" aria-hidden="true" tabindex="-1"></a>For example, in the following equation, $d_1$, $d_2$ and $r_0$ are unknowns:</span>
+<span id="cb25-483"><a href="#cb25-483" aria-hidden="true" tabindex="-1"></a>\begin{equation}</span>
+<span id="cb25-484"><a href="#cb25-484" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb25-485"><a href="#cb25-485" aria-hidden="true" tabindex="-1"></a>k_{00} &amp; k_{01} &amp; k_{02} <span class="sc">\\</span></span>
+<span id="cb25-486"><a href="#cb25-486" aria-hidden="true" tabindex="-1"></a>k_{10} &amp; k_{11} &amp; k_{12} <span class="sc">\\</span></span>
+<span id="cb25-487"><a href="#cb25-487" aria-hidden="true" tabindex="-1"></a>k_{20} &amp; k_{21} &amp; k_{22} <span class="sc">\\</span></span>
+<span id="cb25-488"><a href="#cb25-488" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb25-489"><a href="#cb25-489" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-490"><a href="#cb25-490" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb25-491"><a href="#cb25-491" aria-hidden="true" tabindex="-1"></a>0 <span class="sc">\\</span></span>
+<span id="cb25-492"><a href="#cb25-492" aria-hidden="true" tabindex="-1"></a>d_1 <span class="sc">\\</span></span>
+<span id="cb25-493"><a href="#cb25-493" aria-hidden="true" tabindex="-1"></a>d_2 <span class="sc">\\</span></span>
+<span id="cb25-494"><a href="#cb25-494" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb25-495"><a href="#cb25-495" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb25-496"><a href="#cb25-496" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb25-497"><a href="#cb25-497" aria-hidden="true" tabindex="-1"></a>r_0 <span class="sc">\\</span></span>
+<span id="cb25-498"><a href="#cb25-498" aria-hidden="true" tabindex="-1"></a>-4 <span class="sc">\\</span></span>
+<span id="cb25-499"><a href="#cb25-499" aria-hidden="true" tabindex="-1"></a>10 <span class="sc">\\</span></span>
+<span id="cb25-500"><a href="#cb25-500" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb25-501"><a href="#cb25-501" aria-hidden="true" tabindex="-1"></a>\end{equation}</span>
+<span id="cb25-502"><a href="#cb25-502" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-503"><a href="#cb25-503" aria-hidden="true" tabindex="-1"></a>The matrix system of equations can be partitioned in such a way that we can separate the unknowns and knowns in the forces and displacements vectors. So $\mathbf{d_K}$ is the vector of known displacements and $\mathbf{d_U}$ the vector of unknowns. The same is done to obtain the forces vectors $\mathbf{f_K}$ and $\mathbf{f_U}$.</span>
+<span id="cb25-504"><a href="#cb25-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-505"><a href="#cb25-505" aria-hidden="true" tabindex="-1"></a>\begin{equation}</span>
+<span id="cb25-506"><a href="#cb25-506" aria-hidden="true" tabindex="-1"></a>\mathbf{f_U} = </span>
+<span id="cb25-507"><a href="#cb25-507" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb25-508"><a href="#cb25-508" aria-hidden="true" tabindex="-1"></a>r_0 <span class="sc">\\</span></span>
+<span id="cb25-509"><a href="#cb25-509" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb25-510"><a href="#cb25-510" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-511"><a href="#cb25-511" aria-hidden="true" tabindex="-1"></a>\hspace{5mm}</span>
+<span id="cb25-512"><a href="#cb25-512" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-513"><a href="#cb25-513" aria-hidden="true" tabindex="-1"></a>\mathbf{d_U} = </span>
+<span id="cb25-514"><a href="#cb25-514" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb25-515"><a href="#cb25-515" aria-hidden="true" tabindex="-1"></a>d_1 <span class="sc">\\</span></span>
+<span id="cb25-516"><a href="#cb25-516" aria-hidden="true" tabindex="-1"></a>d_2 <span class="sc">\\</span></span>
+<span id="cb25-517"><a href="#cb25-517" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb25-518"><a href="#cb25-518" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-519"><a href="#cb25-519" aria-hidden="true" tabindex="-1"></a>\hspace{5mm}</span>
+<span id="cb25-520"><a href="#cb25-520" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-521"><a href="#cb25-521" aria-hidden="true" tabindex="-1"></a>\mathbf{f_K} = </span>
+<span id="cb25-522"><a href="#cb25-522" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb25-523"><a href="#cb25-523" aria-hidden="true" tabindex="-1"></a>-4 <span class="sc">\\</span></span>
+<span id="cb25-524"><a href="#cb25-524" aria-hidden="true" tabindex="-1"></a>10 <span class="sc">\\</span></span>
+<span id="cb25-525"><a href="#cb25-525" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb25-526"><a href="#cb25-526" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-527"><a href="#cb25-527" aria-hidden="true" tabindex="-1"></a>\hspace{5mm}</span>
+<span id="cb25-528"><a href="#cb25-528" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-529"><a href="#cb25-529" aria-hidden="true" tabindex="-1"></a>\mathbf{d_K} = </span>
+<span id="cb25-530"><a href="#cb25-530" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb25-531"><a href="#cb25-531" aria-hidden="true" tabindex="-1"></a>0 <span class="sc">\\</span></span>
+<span id="cb25-532"><a href="#cb25-532" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb25-533"><a href="#cb25-533" aria-hidden="true" tabindex="-1"></a>\end{equation}</span>
+<span id="cb25-534"><a href="#cb25-534" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-535"><a href="#cb25-535" aria-hidden="true" tabindex="-1"></a>We can then rewrite the system of equations:</span>
+<span id="cb25-536"><a href="#cb25-536" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-537"><a href="#cb25-537" aria-hidden="true" tabindex="-1"></a>\begin{equation}</span>
+<span id="cb25-538"><a href="#cb25-538" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb25-539"><a href="#cb25-539" aria-hidden="true" tabindex="-1"></a>\mathbf{K_{A}} &amp; \mathbf{K_{AB}} <span class="sc">\\</span></span>
+<span id="cb25-540"><a href="#cb25-540" aria-hidden="true" tabindex="-1"></a>\mathbf{K_{AB}^T} &amp; \mathbf{K_{B}} <span class="sc">\\</span></span>
+<span id="cb25-541"><a href="#cb25-541" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb25-542"><a href="#cb25-542" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-543"><a href="#cb25-543" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb25-544"><a href="#cb25-544" aria-hidden="true" tabindex="-1"></a>\mathbf{d_K}<span class="sc">\\</span></span>
+<span id="cb25-545"><a href="#cb25-545" aria-hidden="true" tabindex="-1"></a>\mathbf{d_U} <span class="sc">\\</span></span>
+<span id="cb25-546"><a href="#cb25-546" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb25-547"><a href="#cb25-547" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb25-548"><a href="#cb25-548" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb25-549"><a href="#cb25-549" aria-hidden="true" tabindex="-1"></a>\mathbf{f_U} <span class="sc">\\</span></span>
+<span id="cb25-550"><a href="#cb25-550" aria-hidden="true" tabindex="-1"></a>\mathbf{f_K} <span class="sc">\\</span></span>
+<span id="cb25-551"><a href="#cb25-551" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb25-552"><a href="#cb25-552" aria-hidden="true" tabindex="-1"></a>\end{equation}</span>
+<span id="cb25-553"><a href="#cb25-553" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-554"><a href="#cb25-554" aria-hidden="true" tabindex="-1"></a>From this matrix equation we can separate the knows and unknowns to get a set of equations to solve for the unknowns. Because the known displacements are null, we can further simplify the equations:</span>
+<span id="cb25-555"><a href="#cb25-555" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-556"><a href="#cb25-556" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-557"><a href="#cb25-557" aria-hidden="true" tabindex="-1"></a>\mathbf{f_U} = \mathbf{K_A} \mathbf{d_K} + \mathbf{K_{AB}} \mathbf{d_U} = \mathbf{K_{AB}} \mathbf{d_U}</span>
+<span id="cb25-558"><a href="#cb25-558" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-559"><a href="#cb25-559" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-560"><a href="#cb25-560" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-561"><a href="#cb25-561" aria-hidden="true" tabindex="-1"></a>\mathbf{f_K} = \mathbf{K_{AB}^T} \mathbf{d_K} + \mathbf{K_B} \mathbf{d_U} = \mathbf{K_B} \mathbf{d_U}</span>
+<span id="cb25-562"><a href="#cb25-562" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-563"><a href="#cb25-563" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-564"><a href="#cb25-564" aria-hidden="true" tabindex="-1"></a>In the following code this matrices are constructed such that, $\mathbf{K_B}_{i,j} = \mathbf{K}_{t,t}$  and $\mathbf{K_A}_{i,j} = \mathbf{K}_{s,t}$, where $t$ and $s$ are the indexes of the rows of the unknown reactions and displacements respectively.</span>
+<span id="cb25-565"><a href="#cb25-565" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-568"><a href="#cb25-568" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb25-569"><a href="#cb25-569" aria-hidden="true" tabindex="-1"></a>KB <span class="op">=</span> np.zeros((<span class="bu">len</span>(rowsrk),<span class="bu">len</span>(rowsrk)))</span>
+<span id="cb25-570"><a href="#cb25-570" aria-hidden="true" tabindex="-1"></a>KA <span class="op">=</span> np.zeros((<span class="bu">len</span>(rowsdk),<span class="bu">len</span>(rowsrk)))</span>
+<span id="cb25-571"><a href="#cb25-571" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-572"><a href="#cb25-572" aria-hidden="true" tabindex="-1"></a>fk <span class="op">=</span> np.array([r[i] <span class="cf">for</span> i <span class="kw">in</span> rowsrk]) <span class="op">+</span> np.array([f[i] <span class="cf">for</span> i <span class="kw">in</span> rowsrk])</span>
+<span id="cb25-573"><a href="#cb25-573" aria-hidden="true" tabindex="-1"></a>dk <span class="op">=</span> np.array([d[i] <span class="cf">for</span> i <span class="kw">in</span> rowsdk]) </span>
 <span id="cb25-574"><a href="#cb25-574" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-575"><a href="#cb25-575" aria-hidden="true" tabindex="-1"></a>fk <span class="op">=</span> np.array([r[i] <span class="cf">for</span> i <span class="kw">in</span> rowsrk]) <span class="op">+</span> np.array([f[i] <span class="cf">for</span> i <span class="kw">in</span> rowsrk])</span>
-<span id="cb25-576"><a href="#cb25-576" aria-hidden="true" tabindex="-1"></a>dk <span class="op">=</span> np.array([d[i] <span class="cf">for</span> i <span class="kw">in</span> rowsdk]) </span>
-<span id="cb25-577"><a href="#cb25-577" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-578"><a href="#cb25-578" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(np.shape(KB)[<span class="dv">0</span>]):</span>
-<span id="cb25-579"><a href="#cb25-579" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(np.shape(KB)[<span class="dv">1</span>]):</span>
-<span id="cb25-580"><a href="#cb25-580" aria-hidden="true" tabindex="-1"></a>        KB[i][j] <span class="op">=</span> K [rowsrk[i]][rowsrk[j]]</span>
-<span id="cb25-581"><a href="#cb25-581" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-582"><a href="#cb25-582" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(np.shape(KA)[<span class="dv">0</span>]):</span>
-<span id="cb25-583"><a href="#cb25-583" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(np.shape(KA)[<span class="dv">1</span>]):</span>
-<span id="cb25-584"><a href="#cb25-584" aria-hidden="true" tabindex="-1"></a>        KA[i][j] <span class="op">=</span> K [rowsdk[i]][rowsrk[j]]</span>
-<span id="cb25-585"><a href="#cb25-585" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-586"><a href="#cb25-586" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-587"><a href="#cb25-587" aria-hidden="true" tabindex="-1"></a>The previous equations can be then rearranged to solve for the unknown displacements and forces:</span>
-<span id="cb25-588"><a href="#cb25-588" aria-hidden="true" tabindex="-1"></a>$$ </span>
-<span id="cb25-589"><a href="#cb25-589" aria-hidden="true" tabindex="-1"></a>\mathbf{d_U} = \mathbf{K_B}^{-1} \mathbf{f_K} \hspace{30mm} \mathbf{f_U} = \mathbf{K_A} \mathbf{d_U}</span>
-<span id="cb25-590"><a href="#cb25-590" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-591"><a href="#cb25-591" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-592"><a href="#cb25-592" aria-hidden="true" tabindex="-1"></a>Using the <span class="in">`linalg.inv`</span>function of <span class="in">`numpy`</span> the matrix $\mathbf{K_B}$ is inverted. This operation is computationally expensive and grows with the number of nodes. There are other algorithms like the <span class="co">[</span><span class="ot">LU decomposition</span><span class="co">](https://en.wikipedia.org/wiki/LU_decomposition)</span> that can improve the performance of this calculation, but for the sake of simplicity we will stick with the matrix inversion.</span>
-<span id="cb25-593"><a href="#cb25-593" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-596"><a href="#cb25-596" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb25-597"><a href="#cb25-597" aria-hidden="true" tabindex="-1"></a>du <span class="op">=</span> np.matmul(np.linalg.inv(KB), fk)</span>
-<span id="cb25-598"><a href="#cb25-598" aria-hidden="true" tabindex="-1"></a>fu <span class="op">=</span> np.matmul(KA,du)</span>
-<span id="cb25-599"><a href="#cb25-599" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-575"><a href="#cb25-575" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(np.shape(KB)[<span class="dv">0</span>]):</span>
+<span id="cb25-576"><a href="#cb25-576" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(np.shape(KB)[<span class="dv">1</span>]):</span>
+<span id="cb25-577"><a href="#cb25-577" aria-hidden="true" tabindex="-1"></a>        KB[i][j] <span class="op">=</span> K [rowsrk[i]][rowsrk[j]]</span>
+<span id="cb25-578"><a href="#cb25-578" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-579"><a href="#cb25-579" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(np.shape(KA)[<span class="dv">0</span>]):</span>
+<span id="cb25-580"><a href="#cb25-580" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(np.shape(KA)[<span class="dv">1</span>]):</span>
+<span id="cb25-581"><a href="#cb25-581" aria-hidden="true" tabindex="-1"></a>        KA[i][j] <span class="op">=</span> K [rowsdk[i]][rowsrk[j]]</span>
+<span id="cb25-582"><a href="#cb25-582" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-583"><a href="#cb25-583" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-584"><a href="#cb25-584" aria-hidden="true" tabindex="-1"></a>The previous equations can be then rearranged to solve for the unknown displacements and forces:</span>
+<span id="cb25-585"><a href="#cb25-585" aria-hidden="true" tabindex="-1"></a>$$ </span>
+<span id="cb25-586"><a href="#cb25-586" aria-hidden="true" tabindex="-1"></a>\mathbf{d_U} = \mathbf{K_B}^{-1} \mathbf{f_K} \hspace{30mm} \mathbf{f_U} = \mathbf{K_A} \mathbf{d_U}</span>
+<span id="cb25-587"><a href="#cb25-587" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-588"><a href="#cb25-588" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-589"><a href="#cb25-589" aria-hidden="true" tabindex="-1"></a>Using the <span class="in">`linalg.inv`</span>function of <span class="in">`numpy`</span> the matrix $\mathbf{K_B}$ is inverted. This operation is computationally expensive and grows with the number of nodes. There are other algorithms like the <span class="co">[</span><span class="ot">LU decomposition</span><span class="co">](https://en.wikipedia.org/wiki/LU_decomposition)</span> that can improve the performance of this calculation, but for the sake of simplicity we will stick with the matrix inversion.</span>
+<span id="cb25-590"><a href="#cb25-590" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-593"><a href="#cb25-593" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb25-594"><a href="#cb25-594" aria-hidden="true" tabindex="-1"></a>du <span class="op">=</span> np.matmul(np.linalg.inv(KB), fk)</span>
+<span id="cb25-595"><a href="#cb25-595" aria-hidden="true" tabindex="-1"></a>fu <span class="op">=</span> np.matmul(KA,du)</span>
+<span id="cb25-596"><a href="#cb25-596" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-597"><a href="#cb25-597" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-598"><a href="#cb25-598" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-599"><a href="#cb25-599" aria-hidden="true" tabindex="-1"></a><span class="fu"># Postprocessing</span></span>
 <span id="cb25-600"><a href="#cb25-600" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-601"><a href="#cb25-601" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-602"><a href="#cb25-602" aria-hidden="true" tabindex="-1"></a><span class="fu"># Postprocessing</span></span>
+<span id="cb25-601"><a href="#cb25-601" aria-hidden="true" tabindex="-1"></a>Now that we have solved the problem, the only thing left is to restructure and visualize the results.</span>
+<span id="cb25-602"><a href="#cb25-602" aria-hidden="true" tabindex="-1"></a>We take the solved displacements stored in <span class="in">`du`</span> and assign them to the correspondent position in the final displacement vector <span class="in">`d_total`</span>:</span>
 <span id="cb25-603"><a href="#cb25-603" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-604"><a href="#cb25-604" aria-hidden="true" tabindex="-1"></a>Now that we have solved the problem, the only thing left is to restructure and visualize the results.</span>
-<span id="cb25-605"><a href="#cb25-605" aria-hidden="true" tabindex="-1"></a>We take the solved displacements stored in <span class="in">`du`</span> and assign them to the correspondent position in the final displacement vector <span class="in">`d_total`</span>:</span>
-<span id="cb25-606"><a href="#cb25-606" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-609"><a href="#cb25-609" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb25-610"><a href="#cb25-610" aria-hidden="true" tabindex="-1"></a>d_total <span class="op">=</span> d.copy()</span>
-<span id="cb25-611"><a href="#cb25-611" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-612"><a href="#cb25-612" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, d_solve <span class="kw">in</span> <span class="bu">zip</span>(rowsrk, du):</span>
-<span id="cb25-613"><a href="#cb25-613" aria-hidden="true" tabindex="-1"></a>    d_total[i] <span class="op">=</span> d_solve</span>
-<span id="cb25-614"><a href="#cb25-614" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-615"><a href="#cb25-615" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-616"><a href="#cb25-616" aria-hidden="true" tabindex="-1"></a>Next we assign the final displacement values to the correspondent nodes:</span>
-<span id="cb25-619"><a href="#cb25-619" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb25-620"><a href="#cb25-620" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,n <span class="kw">in</span> <span class="bu">enumerate</span>(nodes):</span>
-<span id="cb25-621"><a href="#cb25-621" aria-hidden="true" tabindex="-1"></a>    ix,iy <span class="op">=</span> <span class="bu">int</span>(i<span class="op">*</span><span class="dv">2</span>), <span class="bu">int</span>(i<span class="op">*</span><span class="dv">2</span>)<span class="op">+</span><span class="dv">1</span></span>
-<span id="cb25-622"><a href="#cb25-622" aria-hidden="true" tabindex="-1"></a>    n.dx <span class="op">=</span> d_total[ix][<span class="dv">0</span>]</span>
-<span id="cb25-623"><a href="#cb25-623" aria-hidden="true" tabindex="-1"></a>    n.dy <span class="op">=</span> d_total[iy][<span class="dv">0</span>]</span>
-<span id="cb25-624"><a href="#cb25-624" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-625"><a href="#cb25-625" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-626"><a href="#cb25-626" aria-hidden="true" tabindex="-1"></a><span class="fu">## von Mises stress</span></span>
-<span id="cb25-627"><a href="#cb25-627" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-628"><a href="#cb25-628" aria-hidden="true" tabindex="-1"></a>The von Mises yield criterion is a very good way to estimate when an element will undergo plastic deformation by comparing the von Mises stress equivalent to the critical yield stress of the material. The von Mises equivalent stress can be calculated with the following equation:</span>
-<span id="cb25-629"><a href="#cb25-629" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-630"><a href="#cb25-630" aria-hidden="true" tabindex="-1"></a>\sigma_v = \sqrt{\sigma_{xx} + \sigma_{yy} + 3\sigma_{xy}^2 - \sigma_{xx}\sigma_{yy} }</span>
-<span id="cb25-631"><a href="#cb25-631" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-632"><a href="#cb25-632" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-635"><a href="#cb25-635" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb25-636"><a href="#cb25-636" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculateVonMises(sx, sy, sxy):</span>
-<span id="cb25-637"><a href="#cb25-637" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sqrt(sx<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> sy<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span><span class="op">*</span>(sxy<span class="op">**</span><span class="dv">2</span>) <span class="op">-</span> sx<span class="op">*</span>sy)</span>
-<span id="cb25-638"><a href="#cb25-638" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-639"><a href="#cb25-639" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-640"><a href="#cb25-640" aria-hidden="true" tabindex="-1"></a><span class="fu">## Visual representation</span></span>
-<span id="cb25-641"><a href="#cb25-641" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-642"><a href="#cb25-642" aria-hidden="true" tabindex="-1"></a>The <span class="in">`rgb`</span> function interpolates an input value between a maximum and minimum and returns a specific RGB color. The lower values are light blues and the higher are reds and yellows.</span>
-<span id="cb25-645"><a href="#cb25-645" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb25-646"><a href="#cb25-646" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rgb(mag, cmin, cmax):</span>
-<span id="cb25-647"><a href="#cb25-647" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>: x <span class="op">=</span> <span class="bu">float</span>(mag<span class="op">-</span>cmin)<span class="op">/</span>(cmax<span class="op">-</span>cmin)</span>
-<span id="cb25-648"><a href="#cb25-648" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">ZeroDivisionError</span>: x <span class="op">=</span> <span class="fl">0.5</span> </span>
-<span id="cb25-649"><a href="#cb25-649" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb25-650"><a href="#cb25-650" aria-hidden="true" tabindex="-1"></a>    blue  <span class="op">=</span> <span class="bu">int</span>(<span class="dv">255</span><span class="op">*</span> <span class="bu">min</span>((<span class="bu">max</span>((<span class="dv">4</span><span class="op">*</span>(<span class="fl">0.75</span><span class="op">-</span>x), <span class="fl">0.</span>)), <span class="fl">1.</span>)))</span>
-<span id="cb25-651"><a href="#cb25-651" aria-hidden="true" tabindex="-1"></a>    red   <span class="op">=</span> <span class="bu">int</span>(<span class="dv">255</span><span class="op">*</span> <span class="bu">min</span>((<span class="bu">max</span>((<span class="dv">4</span><span class="op">*</span>(x<span class="op">-</span><span class="fl">0.25</span>), <span class="fl">0.</span>)), <span class="fl">1.</span>)))</span>
-<span id="cb25-652"><a href="#cb25-652" aria-hidden="true" tabindex="-1"></a>    green <span class="op">=</span> <span class="bu">int</span>(<span class="dv">255</span><span class="op">*</span> <span class="bu">min</span>((<span class="bu">max</span>((<span class="dv">4</span><span class="op">*</span>fabs(x<span class="op">-</span><span class="fl">0.5</span>)<span class="op">-</span><span class="fl">1.</span>, <span class="fl">0.</span>)), <span class="fl">1.</span>)))</span>
-<span id="cb25-653"><a href="#cb25-653" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (red, green, blue)</span>
+<span id="cb25-606"><a href="#cb25-606" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb25-607"><a href="#cb25-607" aria-hidden="true" tabindex="-1"></a>d_total <span class="op">=</span> d.copy()</span>
+<span id="cb25-608"><a href="#cb25-608" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-609"><a href="#cb25-609" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, d_solve <span class="kw">in</span> <span class="bu">zip</span>(rowsrk, du):</span>
+<span id="cb25-610"><a href="#cb25-610" aria-hidden="true" tabindex="-1"></a>    d_total[i] <span class="op">=</span> d_solve</span>
+<span id="cb25-611"><a href="#cb25-611" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-612"><a href="#cb25-612" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-613"><a href="#cb25-613" aria-hidden="true" tabindex="-1"></a>Next we assign the final displacement values to the correspondent nodes:</span>
+<span id="cb25-616"><a href="#cb25-616" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb25-617"><a href="#cb25-617" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,n <span class="kw">in</span> <span class="bu">enumerate</span>(nodes):</span>
+<span id="cb25-618"><a href="#cb25-618" aria-hidden="true" tabindex="-1"></a>    ix,iy <span class="op">=</span> <span class="bu">int</span>(i<span class="op">*</span><span class="dv">2</span>), <span class="bu">int</span>(i<span class="op">*</span><span class="dv">2</span>)<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb25-619"><a href="#cb25-619" aria-hidden="true" tabindex="-1"></a>    n.dx <span class="op">=</span> d_total[ix][<span class="dv">0</span>]</span>
+<span id="cb25-620"><a href="#cb25-620" aria-hidden="true" tabindex="-1"></a>    n.dy <span class="op">=</span> d_total[iy][<span class="dv">0</span>]</span>
+<span id="cb25-621"><a href="#cb25-621" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-622"><a href="#cb25-622" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-623"><a href="#cb25-623" aria-hidden="true" tabindex="-1"></a><span class="fu">## von Mises stress</span></span>
+<span id="cb25-624"><a href="#cb25-624" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-625"><a href="#cb25-625" aria-hidden="true" tabindex="-1"></a>The von Mises yield criterion is a very good way to estimate when an element will undergo plastic deformation by comparing the von Mises stress equivalent to the critical yield stress of the material. The von Mises equivalent stress can be calculated with the following equation:</span>
+<span id="cb25-626"><a href="#cb25-626" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-627"><a href="#cb25-627" aria-hidden="true" tabindex="-1"></a>\sigma_v = \sqrt{\sigma_{xx} + \sigma_{yy} + 3\sigma_{xy}^2 - \sigma_{xx}\sigma_{yy} }</span>
+<span id="cb25-628"><a href="#cb25-628" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-629"><a href="#cb25-629" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-632"><a href="#cb25-632" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb25-633"><a href="#cb25-633" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculateVonMises(sx, sy, sxy):</span>
+<span id="cb25-634"><a href="#cb25-634" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sqrt(sx<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> sy<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span><span class="op">*</span>(sxy<span class="op">**</span><span class="dv">2</span>) <span class="op">-</span> sx<span class="op">*</span>sy)</span>
+<span id="cb25-635"><a href="#cb25-635" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-636"><a href="#cb25-636" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-637"><a href="#cb25-637" aria-hidden="true" tabindex="-1"></a><span class="fu">## Visual representation</span></span>
+<span id="cb25-638"><a href="#cb25-638" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-639"><a href="#cb25-639" aria-hidden="true" tabindex="-1"></a>The <span class="in">`rgb`</span> function interpolates an input value between a maximum and minimum and returns a specific RGB color. The lower values are light blues and the higher are reds and yellows.</span>
+<span id="cb25-642"><a href="#cb25-642" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb25-643"><a href="#cb25-643" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rgb(mag, cmin, cmax):</span>
+<span id="cb25-644"><a href="#cb25-644" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>: x <span class="op">=</span> <span class="bu">float</span>(mag<span class="op">-</span>cmin)<span class="op">/</span>(cmax<span class="op">-</span>cmin)</span>
+<span id="cb25-645"><a href="#cb25-645" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">ZeroDivisionError</span>: x <span class="op">=</span> <span class="fl">0.5</span> </span>
+<span id="cb25-646"><a href="#cb25-646" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-647"><a href="#cb25-647" aria-hidden="true" tabindex="-1"></a>    blue  <span class="op">=</span> <span class="bu">int</span>(<span class="dv">255</span><span class="op">*</span> <span class="bu">min</span>((<span class="bu">max</span>((<span class="dv">4</span><span class="op">*</span>(<span class="fl">0.75</span><span class="op">-</span>x), <span class="fl">0.</span>)), <span class="fl">1.</span>)))</span>
+<span id="cb25-648"><a href="#cb25-648" aria-hidden="true" tabindex="-1"></a>    red   <span class="op">=</span> <span class="bu">int</span>(<span class="dv">255</span><span class="op">*</span> <span class="bu">min</span>((<span class="bu">max</span>((<span class="dv">4</span><span class="op">*</span>(x<span class="op">-</span><span class="fl">0.25</span>), <span class="fl">0.</span>)), <span class="fl">1.</span>)))</span>
+<span id="cb25-649"><a href="#cb25-649" aria-hidden="true" tabindex="-1"></a>    green <span class="op">=</span> <span class="bu">int</span>(<span class="dv">255</span><span class="op">*</span> <span class="bu">min</span>((<span class="bu">max</span>((<span class="dv">4</span><span class="op">*</span>fabs(x<span class="op">-</span><span class="fl">0.5</span>)<span class="op">-</span><span class="fl">1.</span>, <span class="fl">0.</span>)), <span class="fl">1.</span>)))</span>
+<span id="cb25-650"><a href="#cb25-650" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (red, green, blue)</span>
+<span id="cb25-651"><a href="#cb25-651" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-652"><a href="#cb25-652" aria-hidden="true" tabindex="-1"></a>average <span class="op">=</span> <span class="kw">lambda</span> x: (<span class="bu">sum</span>(x)<span class="op">/</span><span class="bu">len</span>(x))</span>
+<span id="cb25-653"><a href="#cb25-653" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-654"><a href="#cb25-654" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-655"><a href="#cb25-655" aria-hidden="true" tabindex="-1"></a>average <span class="op">=</span> <span class="kw">lambda</span> x: (<span class="bu">sum</span>(x)<span class="op">/</span><span class="bu">len</span>(x))</span>
-<span id="cb25-656"><a href="#cb25-656" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-657"><a href="#cb25-657" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-658"><a href="#cb25-658" aria-hidden="true" tabindex="-1"></a>The static attribute <span class="in">`colorFunc`</span> of the <span class="in">`Element`</span> class defines the function used to interpolate the values to the color. Here we set it to a linear function but it can be changed to an logarithmic function for example.</span>
-<span id="cb25-659"><a href="#cb25-659" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-662"><a href="#cb25-662" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb25-663"><a href="#cb25-663" aria-hidden="true" tabindex="-1"></a>maxd, mind <span class="op">=</span> <span class="bu">max</span>(d_total)[<span class="dv">0</span>], <span class="bu">min</span>(d_total)[<span class="dv">0</span>]</span>
-<span id="cb25-664"><a href="#cb25-664" aria-hidden="true" tabindex="-1"></a>Element.colorFunc <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="co"># Logarithmic: exp(-x)</span></span>
-<span id="cb25-665"><a href="#cb25-665" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-666"><a href="#cb25-666" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-667"><a href="#cb25-667" aria-hidden="true" tabindex="-1"></a>The stresses are calculated using the <span class="co">[</span><span class="ot">generalized Hook's expression</span><span class="co">](https://en.wikipedia.org/wiki/Hooke%27s_law#Hooke's_law_for_continuous_media)</span>.</span>
-<span id="cb25-668"><a href="#cb25-668" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-669"><a href="#cb25-669" aria-hidden="true" tabindex="-1"></a>\varepsilon^e = \mathbf{B}^e \mathbf{d}^e \hspace{20mm} \sigma^e = \mathbf{D} \varepsilon^e</span>
-<span id="cb25-670"><a href="#cb25-670" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-671"><a href="#cb25-671" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-672"><a href="#cb25-672" aria-hidden="true" tabindex="-1"></a>The strains and stresses are calculated for each element and the color of each element is assigned depending on the value of the von Mises stress. The <span class="in">`colorVal`</span> determines the value used for coloring, this can be modified so that the strains are colored instead for example.</span>
-<span id="cb25-673"><a href="#cb25-673" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-676"><a href="#cb25-676" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb25-677"><a href="#cb25-677" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,element <span class="kw">in</span> <span class="bu">enumerate</span>(elements):</span>
-<span id="cb25-678"><a href="#cb25-678" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb25-679"><a href="#cb25-679" aria-hidden="true" tabindex="-1"></a>    de <span class="op">=</span> element.getde()</span>
-<span id="cb25-680"><a href="#cb25-680" aria-hidden="true" tabindex="-1"></a>    strain_e <span class="op">=</span> np.matmul(element.Be, de)</span>
-<span id="cb25-681"><a href="#cb25-681" aria-hidden="true" tabindex="-1"></a>    stress_e <span class="op">=</span> np.matmul(D, strain_e)</span>
+<span id="cb25-655"><a href="#cb25-655" aria-hidden="true" tabindex="-1"></a>The static attribute <span class="in">`colorFunc`</span> of the <span class="in">`Element`</span> class defines the function used to interpolate the values to the color. Here we set it to a linear function but it can be changed to an logarithmic function for example.</span>
+<span id="cb25-656"><a href="#cb25-656" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-659"><a href="#cb25-659" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb25-660"><a href="#cb25-660" aria-hidden="true" tabindex="-1"></a>maxd, mind <span class="op">=</span> <span class="bu">max</span>(d_total)[<span class="dv">0</span>], <span class="bu">min</span>(d_total)[<span class="dv">0</span>]</span>
+<span id="cb25-661"><a href="#cb25-661" aria-hidden="true" tabindex="-1"></a>Element.colorFunc <span class="op">=</span> <span class="kw">lambda</span> x: x <span class="co"># Logarithmic: exp(-x)</span></span>
+<span id="cb25-662"><a href="#cb25-662" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-663"><a href="#cb25-663" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-664"><a href="#cb25-664" aria-hidden="true" tabindex="-1"></a>The stresses are calculated using the <span class="co">[</span><span class="ot">generalized Hook's expression</span><span class="co">](https://en.wikipedia.org/wiki/Hooke%27s_law#Hooke's_law_for_continuous_media)</span>.</span>
+<span id="cb25-665"><a href="#cb25-665" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-666"><a href="#cb25-666" aria-hidden="true" tabindex="-1"></a>\varepsilon^e = \mathbf{B}^e \mathbf{d}^e \hspace{20mm} \sigma^e = \mathbf{D} \varepsilon^e</span>
+<span id="cb25-667"><a href="#cb25-667" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-668"><a href="#cb25-668" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-669"><a href="#cb25-669" aria-hidden="true" tabindex="-1"></a>The strains and stresses are calculated for each element and the color of each element is assigned depending on the value of the von Mises stress. The <span class="in">`colorVal`</span> determines the value used for coloring, this can be modified so that the strains are colored instead for example.</span>
+<span id="cb25-670"><a href="#cb25-670" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-673"><a href="#cb25-673" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb25-674"><a href="#cb25-674" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,element <span class="kw">in</span> <span class="bu">enumerate</span>(elements):</span>
+<span id="cb25-675"><a href="#cb25-675" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-676"><a href="#cb25-676" aria-hidden="true" tabindex="-1"></a>    de <span class="op">=</span> element.getde()</span>
+<span id="cb25-677"><a href="#cb25-677" aria-hidden="true" tabindex="-1"></a>    strain_e <span class="op">=</span> np.matmul(element.Be, de)</span>
+<span id="cb25-678"><a href="#cb25-678" aria-hidden="true" tabindex="-1"></a>    stress_e <span class="op">=</span> np.matmul(D, strain_e)</span>
+<span id="cb25-679"><a href="#cb25-679" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-680"><a href="#cb25-680" aria-hidden="true" tabindex="-1"></a>    element.strain <span class="op">=</span> strain_e</span>
+<span id="cb25-681"><a href="#cb25-681" aria-hidden="true" tabindex="-1"></a>    element.stress <span class="op">=</span> stress_e</span>
 <span id="cb25-682"><a href="#cb25-682" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb25-683"><a href="#cb25-683" aria-hidden="true" tabindex="-1"></a>    element.strain <span class="op">=</span> strain_e</span>
-<span id="cb25-684"><a href="#cb25-684" aria-hidden="true" tabindex="-1"></a>    element.stress <span class="op">=</span> stress_e</span>
-<span id="cb25-685"><a href="#cb25-685" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb25-686"><a href="#cb25-686" aria-hidden="true" tabindex="-1"></a>    element.colorVal <span class="op">=</span> calculateVonMises(element.stress[<span class="dv">0</span>], element.stress[<span class="dv">1</span>], element.stress[<span class="dv">2</span>])</span>
-<span id="cb25-687"><a href="#cb25-687" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb25-688"><a href="#cb25-688" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> element.colorVal <span class="op">&gt;</span> Element.maxColorVal:</span>
-<span id="cb25-689"><a href="#cb25-689" aria-hidden="true" tabindex="-1"></a>        Element.maxColorVal <span class="op">=</span> element.colorVal</span>
-<span id="cb25-690"><a href="#cb25-690" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> element.colorVal <span class="op">&lt;</span> Element.minColorVal:</span>
-<span id="cb25-691"><a href="#cb25-691" aria-hidden="true" tabindex="-1"></a>        Element.minColorVal <span class="op">=</span> element.colorVal</span>
-<span id="cb25-692"><a href="#cb25-692" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-693"><a href="#cb25-693" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-694"><a href="#cb25-694" aria-hidden="true" tabindex="-1"></a>Finally the results are viewed using the <span class="in">`drawMesh`</span> module:</span>
-<span id="cb25-697"><a href="#cb25-697" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb25-698"><a href="#cb25-698" aria-hidden="true" tabindex="-1"></a>render <span class="op">=</span> drawMesh.MeshRender()          <span class="co"># Creates an instance of a MeshRender</span></span>
-<span id="cb25-699"><a href="#cb25-699" aria-hidden="true" tabindex="-1"></a>render.legend <span class="op">=</span> <span class="va">True</span>                    <span class="co"># The legened will be drawn</span></span>
-<span id="cb25-700"><a href="#cb25-700" aria-hidden="true" tabindex="-1"></a>render.autoScale <span class="op">=</span> <span class="va">True</span>                 <span class="co"># The mesh will be automatically scaled to fit the window</span></span>
-<span id="cb25-701"><a href="#cb25-701" aria-hidden="true" tabindex="-1"></a>render.deform_scale <span class="op">=</span> <span class="fl">1.0e5</span>             <span class="co"># Sets the scale to draw the deformation of the nodes displacement</span></span>
-<span id="cb25-702"><a href="#cb25-702" aria-hidden="true" tabindex="-1"></a>render.legendTitle <span class="op">=</span> <span class="st">'von-mises (Pa)'</span></span>
-<span id="cb25-703"><a href="#cb25-703" aria-hidden="true" tabindex="-1"></a>render.drawElements(elements)</span>
-<span id="cb25-704"><a href="#cb25-704" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-705"><a href="#cb25-705" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-706"><a href="#cb25-706" aria-hidden="true" tabindex="-1"></a><span class="al">![](pictures/vonmises_highres_x.png)</span>{width=100% fig-align="center"}</span>
-<span id="cb25-707"><a href="#cb25-707" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-708"><a href="#cb25-708" aria-hidden="true" tabindex="-1"></a>If we rerun the code changing the force direction downwards we get the following result:</span>
-<span id="cb25-709"><a href="#cb25-709" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-710"><a href="#cb25-710" aria-hidden="true" tabindex="-1"></a><span class="al">![](pictures/vonmises_highres_y_log.png)</span>{width=100% fig-align="center"}</span>
-<span id="cb25-711"><a href="#cb25-711" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-712"><a href="#cb25-712" aria-hidden="true" tabindex="-1"></a>This particular problem of a plate with a hole in tension has been studied thoroughly due to its implications regarding riveting, aircraft pressurization and many other applications. There is an analytical expression to calculate the stresses in polar coordinates in a rectangular plate with a hole of radius $R$ subjected to a tensional stress at both ends of $\sigma_t$:</span>
-<span id="cb25-713"><a href="#cb25-713" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-714"><a href="#cb25-714" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-715"><a href="#cb25-715" aria-hidden="true" tabindex="-1"></a>\sigma_r(r, \theta) = \frac{\sigma_t}{2} \left( 1- \frac{R^2}{r^2} \right) + \frac{\sigma_t}{2} \left( 1 + 3\frac{R^4}{r^4} - 4 \frac{R^2}{r^2} \right) \cos(2\theta)</span>
-<span id="cb25-716"><a href="#cb25-716" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-717"><a href="#cb25-717" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-718"><a href="#cb25-718" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-719"><a href="#cb25-719" aria-hidden="true" tabindex="-1"></a>\sigma_{\theta}(r, \theta) = \frac{\sigma_t}{2} \left( 1 + \frac{R^2}{r^2} \right) - \frac{\sigma_t}{2} \left( 1 + 3\frac{R^4}{r^4} \right) \cos(2\theta)</span>
-<span id="cb25-720"><a href="#cb25-720" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-721"><a href="#cb25-721" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-722"><a href="#cb25-722" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-723"><a href="#cb25-723" aria-hidden="true" tabindex="-1"></a>\tau_{r\theta}(r, \theta) = -\frac{\sigma_t}{2} \left( 1 - 3\frac{R^4}{r^4} + 2\frac{R^2}{r^2} \right) \sin(2\theta)</span>
-<span id="cb25-724"><a href="#cb25-724" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb25-725"><a href="#cb25-725" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-726"><a href="#cb25-726" aria-hidden="true" tabindex="-1"></a>Calculating the von Mises stress and plotting the analytical expression using the same values as the example, yields the following result :</span>
-<span id="cb25-727"><a href="#cb25-727" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-728"><a href="#cb25-728" aria-hidden="true" tabindex="-1"></a><span class="al">![](pictures/analytical.png)</span>{width=100% fig-align="center"}</span>
-<span id="cb25-729"><a href="#cb25-729" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-730"><a href="#cb25-730" aria-hidden="true" tabindex="-1"></a>We can see that the results of the FEM method are the same as the predicted by the analytical method.</span>
-<span id="cb25-731"><a href="#cb25-731" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-732"><a href="#cb25-732" aria-hidden="true" tabindex="-1"></a><span class="fu"># References</span></span>
-<span id="cb25-733"><a href="#cb25-733" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-734"><a href="#cb25-734" aria-hidden="true" tabindex="-1"></a>::: {#refs}</span>
-<span id="cb25-735"><a href="#cb25-735" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb25-683"><a href="#cb25-683" aria-hidden="true" tabindex="-1"></a>    element.colorVal <span class="op">=</span> calculateVonMises(element.stress[<span class="dv">0</span>], element.stress[<span class="dv">1</span>], element.stress[<span class="dv">2</span>])</span>
+<span id="cb25-684"><a href="#cb25-684" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-685"><a href="#cb25-685" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> element.colorVal <span class="op">&gt;</span> Element.maxColorVal:</span>
+<span id="cb25-686"><a href="#cb25-686" aria-hidden="true" tabindex="-1"></a>        Element.maxColorVal <span class="op">=</span> element.colorVal</span>
+<span id="cb25-687"><a href="#cb25-687" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> element.colorVal <span class="op">&lt;</span> Element.minColorVal:</span>
+<span id="cb25-688"><a href="#cb25-688" aria-hidden="true" tabindex="-1"></a>        Element.minColorVal <span class="op">=</span> element.colorVal</span>
+<span id="cb25-689"><a href="#cb25-689" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-690"><a href="#cb25-690" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-691"><a href="#cb25-691" aria-hidden="true" tabindex="-1"></a>Finally the results are viewed using the <span class="in">`drawMesh`</span> module:</span>
+<span id="cb25-694"><a href="#cb25-694" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb25-695"><a href="#cb25-695" aria-hidden="true" tabindex="-1"></a>render <span class="op">=</span> drawMesh.MeshRender()          <span class="co"># Creates an instance of a MeshRender</span></span>
+<span id="cb25-696"><a href="#cb25-696" aria-hidden="true" tabindex="-1"></a>render.legend <span class="op">=</span> <span class="va">True</span>                    <span class="co"># The legened will be drawn</span></span>
+<span id="cb25-697"><a href="#cb25-697" aria-hidden="true" tabindex="-1"></a>render.autoScale <span class="op">=</span> <span class="va">True</span>                 <span class="co"># The mesh will be automatically scaled to fit the window</span></span>
+<span id="cb25-698"><a href="#cb25-698" aria-hidden="true" tabindex="-1"></a>render.deform_scale <span class="op">=</span> <span class="fl">1.0e5</span>             <span class="co"># Sets the scale to draw the deformation of the nodes displacement</span></span>
+<span id="cb25-699"><a href="#cb25-699" aria-hidden="true" tabindex="-1"></a>render.legendTitle <span class="op">=</span> <span class="st">'von-mises (Pa)'</span></span>
+<span id="cb25-700"><a href="#cb25-700" aria-hidden="true" tabindex="-1"></a>render.drawElements(elements)</span>
+<span id="cb25-701"><a href="#cb25-701" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-702"><a href="#cb25-702" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-703"><a href="#cb25-703" aria-hidden="true" tabindex="-1"></a><span class="al">![](pictures/vonmises_highres_x.png)</span>{width=100% fig-align="center"}</span>
+<span id="cb25-704"><a href="#cb25-704" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-705"><a href="#cb25-705" aria-hidden="true" tabindex="-1"></a>If we rerun the code changing the force direction downwards we get the following result:</span>
+<span id="cb25-706"><a href="#cb25-706" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-707"><a href="#cb25-707" aria-hidden="true" tabindex="-1"></a><span class="al">![](pictures/vonmises_highres_y_log.png)</span>{width=100% fig-align="center"}</span>
+<span id="cb25-708"><a href="#cb25-708" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-709"><a href="#cb25-709" aria-hidden="true" tabindex="-1"></a>This particular problem of a plate with a hole in tension has been studied thoroughly due to its implications regarding riveting, aircraft pressurization and many other applications. There is an analytical expression to calculate the stresses in polar coordinates in a rectangular plate with a hole of radius $R$ subjected to a tensional stress at both ends of $\sigma_t$:</span>
+<span id="cb25-710"><a href="#cb25-710" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-711"><a href="#cb25-711" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-712"><a href="#cb25-712" aria-hidden="true" tabindex="-1"></a>\sigma_r(r, \theta) = \frac{\sigma_t}{2} \left( 1- \frac{R^2}{r^2} \right) + \frac{\sigma_t}{2} \left( 1 + 3\frac{R^4}{r^4} - 4 \frac{R^2}{r^2} \right) \cos(2\theta)</span>
+<span id="cb25-713"><a href="#cb25-713" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-714"><a href="#cb25-714" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-715"><a href="#cb25-715" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-716"><a href="#cb25-716" aria-hidden="true" tabindex="-1"></a>\sigma_{\theta}(r, \theta) = \frac{\sigma_t}{2} \left( 1 + \frac{R^2}{r^2} \right) - \frac{\sigma_t}{2} \left( 1 + 3\frac{R^4}{r^4} \right) \cos(2\theta)</span>
+<span id="cb25-717"><a href="#cb25-717" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-718"><a href="#cb25-718" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-719"><a href="#cb25-719" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-720"><a href="#cb25-720" aria-hidden="true" tabindex="-1"></a>\tau_{r\theta}(r, \theta) = -\frac{\sigma_t}{2} \left( 1 - 3\frac{R^4}{r^4} + 2\frac{R^2}{r^2} \right) \sin(2\theta)</span>
+<span id="cb25-721"><a href="#cb25-721" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb25-722"><a href="#cb25-722" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-723"><a href="#cb25-723" aria-hidden="true" tabindex="-1"></a>Calculating the von Mises stress and plotting the analytical expression using the same values as the example, yields the following result :</span>
+<span id="cb25-724"><a href="#cb25-724" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-725"><a href="#cb25-725" aria-hidden="true" tabindex="-1"></a><span class="al">![](pictures/analytical.png)</span>{width=100% fig-align="center"}</span>
+<span id="cb25-726"><a href="#cb25-726" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-727"><a href="#cb25-727" aria-hidden="true" tabindex="-1"></a>We can see that the results of the FEM method are the same as the predicted by the analytical method.</span>
+<span id="cb25-728"><a href="#cb25-728" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-729"><a href="#cb25-729" aria-hidden="true" tabindex="-1"></a><span class="fu"># References</span></span>
+<span id="cb25-730"><a href="#cb25-730" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-731"><a href="#cb25-731" aria-hidden="true" tabindex="-1"></a>::: {#refs}</span>
+<span id="cb25-732"><a href="#cb25-732" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

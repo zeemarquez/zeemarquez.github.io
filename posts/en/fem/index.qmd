@@ -335,7 +335,7 @@ $$
 
 Because of how the `pygmsh` library works, the mesh starts counting points including some points like the center of the circle that are not exported to the mesh. Therefore the numbering of the nodes must be modified so that the first point in the mesh is numbered as $0$:
 
-```{python}
+```python
 maxNode = 0
 for cell in mesh.cells[1].data:
     for node in cell:
@@ -347,7 +347,8 @@ meshPoints = mesh.points[1:]
 ```
 
 Next, the elements and nodes are generated and stored in the lists `elements` and `nodes`respectively:
-```{python}
+
+```python
 nodes = [Node(i, point[0], point[1]) for i, point in enumerate(meshPoints)]
 elements = []
 
